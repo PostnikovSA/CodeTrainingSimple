@@ -1,15 +1,17 @@
 using System;
-    class Demo
+class Demo
+{
+    static void Main()
     {
-        static void Main()
-        {
-            string str_a = Console.ReadLine();
-            double a = Convert.ToDouble(str_a);
+        Console.WriteLine("Enter any two numbers:\n");
+        
+        string str_a = Console.ReadLine();
+        double a = Convert.ToDouble(str_a);
 
-            string str_b = Console.ReadLine();
-            double b = Convert.ToDouble(str_b);
+        string str_b = Console.ReadLine();
+        double b = Convert.ToDouble(str_b);
 
-            double c = (a + b) / 2;
-            Console.WriteLine(c);
-        }    
+        double c = (a + b) / 2;
+        Console.WriteLine("\nArithmetic mean of two numbers: " + c+"\n");
     }
+}
