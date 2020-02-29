@@ -1,9 +1,15 @@
+/*
+https://www.youtube.com/watch?v=CyMOlixfPMA 11:40.
+Author: #SimpleCode.
+Task: Enter three numbers and display the sum value and the product of these numbers.
+Задача: Введите три числа и выведите на экран значение суммы и произведение этих чисел.
+*/
+
 using System;
     class Demo
     {
         static void Main()
         {
-
         Console.WriteLine("Enter any three numbers:\n");
         
         string str_a = Console.ReadLine();
