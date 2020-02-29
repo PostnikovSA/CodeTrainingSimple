@@ -1,14 +1,30 @@
+/*
+https://tproger.ru/problems/girl-counts-on-fingers/
+
+Author: «Algorithmic Puzzles», Anany Levitin, Maria Levitin.
+
+Task: A little girl counts from 1 to 1000 on the fingers of her left hand as follows.
+She starts with the thumb - this is 1. Index - 2. Middle - 3. Nameless - 4. Little finger - 5.
+And he continues in the opposite direction: nameless - 6, middle - 7, index - 8, large - 9. Then index - 10 and so on.
+If she continues to count this way, on which finger will she end?
+
+Задача: Маленькая девочка считает от 1 до 1000 на пальцах левой руки следующим образом. 
+Она начинает с большого пальца — это 1. Указательный — 2. Средний — 3. Безымянный — 4. Мизинец — 5.
+И продолжает в обратную сторону: безымянный — 6, средний — 7, указательный — 8, большой — 9. Потом указательный — 10 и так далее.
+Если она продолжит считать таким образом, на каком пальце она закончит?
+*/
+
 using System;
 class Demo
 {
     static void Main()
     {
-        for(int i=1; i<=8; i++)
+        for (int a = 1; a <= 8; a++)
         {
-            for(int t=i; t<=1000; t+=8) 
+            for (int b = a; b <= 1000; b += 8)
             {
-                if (t == 1000) Console.WriteLine(i);
-            }  
+                if (b == 1000) Console.WriteLine(a);
+            }
         }
     }
 }
