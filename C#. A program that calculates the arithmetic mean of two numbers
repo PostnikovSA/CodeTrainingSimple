@@ -1,3 +1,10 @@
+/*
+https://www.youtube.com/watch?v=CyMOlixfPMA   11:40.
+Author: #SimpleCode.
+Task: Write a program that calculates the arithmetic mean of two numbers.
+Задача: Напишите программу, вычисляющую среднее арифметическое двух чисел.
+*/
+
 using System;
 class Demo
 {
