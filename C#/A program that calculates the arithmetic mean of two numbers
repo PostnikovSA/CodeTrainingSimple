@@ -1,0 +1,15 @@
+using System;
+    class Demo
+    {
+        static void Main()
+        {
+            string str_a = Console.ReadLine();
+            double a = Convert.ToDouble(str_a);
+
+            string str_b = Console.ReadLine();
+            double b = Convert.ToDouble(str_b);
+
+            double c = (a + b) / 2;
+            Console.WriteLine(c);
+        }    
+    }
