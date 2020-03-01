@@ -1,0 +1,40 @@
+/*
+https://www.youtube.com/watch?v=CyMOlixfPMA
+
+Author: #SimpleCode.
+
+Task: Write a simple currency converter (without the ability to dynamically select a currency by the user). 
+Currencies are set by hardcode and do not change. Type of currencies to choose a programmer.
+
+Задача: Напишите простой конвертер валют (без возможности динамического выбора валюты пользователем). 
+Валюты заданы хардкодом и не изменяются. Тип валют на выбор программиста.
+*/
+
+using System;
+class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Currency Converter: Dollar to Ruble\n");
+
+            double ruble = 66.91;
+
+            Console.Write("Enter how many I have\ndollars: ");
+
+            string str_dollar = Console.ReadLine();
+            str_dollar = str_dollar.Replace(".", ",");
+            
+            double dollar;
+        
+            bool b_dollar = double.TryParse(str_dollar, out dollar);
+            if (b_dollar)
+            {
+                double amount = dollar * ruble;
+                Console.WriteLine("\nI will get so many\nrubles: " + amount + "\n");
+            }
+            else
+            {
+                Console.WriteLine("\nError convertation! Try enter only numbers!");
+            }
+        }
+}
