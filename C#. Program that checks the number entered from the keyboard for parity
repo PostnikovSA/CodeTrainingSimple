@@ -1,0 +1,41 @@
+/*
+https://www.youtube.com/watch?v=qrPuaaVGEp4&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=16
+
+Author: #SimpleCode.
+
+Task: Write a program that checks the number entered from the keyboard for parity.
+
+Задача: Напишите программу, проверяющую число, введенное с клавиатуры на четность.
+*/
+
+
+using System;
+    class Demo
+    {
+        static void Main()
+        {
+            int first_number;
+            int check_number = 2; // any even number, for example: 2
+
+            string str_first_number = Console.ReadLine();
+            bool bl_first_number = int.TryParse(str_first_number, out first_number);
+
+            if (bl_first_number)
+            {
+                Console.WriteLine("Convertation successful!");
+                if ((first_number % check_number) == 0)
+                {
+                    Console.Write(first_number + ": Even number!\n");
+                }
+                else
+                {
+                    Console.Write(first_number + ": Edd number!\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error, Try to enter only numbers!");
+            }
+        }
+    }
+
