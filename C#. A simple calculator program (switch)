@@ -1,0 +1,107 @@
+/*
+https://www.youtube.com/watch?v=4aL0YVKt880&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=20
+
+Author: #SimpleCode.
+
+Task: Write a simple calculator program (switch).
+
+Задача: Напишите программу простого калькулятора (switch).
+*/
+
+using System;
+class Calculator_ifelse
+{
+    static void Main()
+    {
+        double first_number;
+        bool b_first_number;
+
+        string str_arithmetic_action;
+
+        string str_plus = "+";
+        bool b_plus;
+
+        string str_minus = "-";
+        bool b_minus;
+
+        string str_multiply = "*";
+        bool b_multyply;
+
+        string str_devide = "/";
+        bool b_devide;
+
+        double second_number;
+        bool b_second_number;
+
+        double Result;
+       
+
+        while (true)
+        {
+            Console.WriteLine("Enter first number");
+            b_first_number = double.TryParse(Console.ReadLine(), out first_number);
+            if (b_first_number)
+            { 
+                break;
+            }
+            else
+            {   
+                Console.WriteLine("Error, try to enter only number\n");
+            }
+        }
+
+        while (true)
+        {
+            Console.WriteLine("\nEnter arithmetic action");
+            str_arithmetic_action = Console.ReadLine();
+            b_plus = string.Equals(str_arithmetic_action, str_plus);
+            b_minus = string.Equals(str_arithmetic_action, str_minus);
+            b_multyply = string.Equals(str_arithmetic_action, str_multiply);
+            b_devide = string.Equals(str_arithmetic_action, str_devide);
+            
+
+            if ((b_plus)|(b_minus)|(b_multyply)|(b_devide))
+                {
+                    break;
+                }
+            else
+            {
+                Console.WriteLine("Error, try to enter only symbols arithmetic action\n");
+            }
+
+        }
+        while (true)
+        {
+            Console.WriteLine("\nEnter second number");
+            b_second_number = double.TryParse(Console.ReadLine(), out second_number);
+            if (b_second_number)
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Error, try to enter only number\n");
+            }
+        }
+
+        switch (str_arithmetic_action)
+        {
+            case "+":
+                Result = first_number + second_number;
+                Console.WriteLine("\nResult\n" + Result + "\n");
+                break;
+            case "-":
+                Result = first_number - second_number;
+                Console.WriteLine("\nResult\n" + Result + "\n");
+                break;
+            case "*":
+                Result = first_number * second_number;
+                Console.WriteLine("\nResult\n" + Result + "\n");
+                break;
+            case "/":
+                Result = first_number / second_number;
+                Console.WriteLine("\nResult\n" + Result + "\n");
+                break;
+        }
+    }
+}
