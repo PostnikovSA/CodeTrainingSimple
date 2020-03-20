@@ -42,7 +42,7 @@ class EvenAndOdd
             }
         }
 
-        while (first_number < second_number)
+        while (first_number <= second_number)
         {
             count = first_number++ % 2;
             if (count == 0) even++;
