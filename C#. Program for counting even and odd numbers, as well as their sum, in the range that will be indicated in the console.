@@ -1,0 +1,70 @@
+/*
+https://www.youtube.com/watch?v=bJ4DtsojdrI&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=23
+
+Author: #SimpleCode.
+
+Task: Write a program for counting even and odd numbers, as well as their sum, in the range that will be indicated in the console.
+
+Задача: Написать программу подсчета четных и нечетных чисел, а также их суммы, в диапазоне, которые будут указаны в консоле.
+*/
+
+using System;
+class EvenAndOdd2
+{
+    static void Main()
+    {
+        int even = 0;
+        int odd = 0;
+        int sum_even = 0;
+        int sum_odd = 0;
+        int count;
+        bool b_first_number;
+        bool b_second_number;
+        int first_number;
+        int second_number;
+        int transition_number;
+
+        while (true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Enter first number");
+            b_first_number = int.TryParse(Console.ReadLine(), out first_number);
+
+            Console.WriteLine("\nEnter second number");
+            b_second_number = int.TryParse(Console.ReadLine(), out second_number);
+
+            if ((b_first_number) & (b_second_number) & (first_number < second_number))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("\nError, entered numbers must be integers, or the first number cannot be less than the second");
+                Console.ReadKey();
+            }
+        }
+
+        while (first_number <= second_number)
+        {
+            transition_number = first_number;
+            count = first_number++ % 2;
+
+            if (count == 0) 
+            {
+                even++;
+                sum_even += transition_number;
+            }
+            else
+            {
+                odd++;
+                sum_odd += transition_number;
+            }
+        }
+      
+        Console.WriteLine("\neven numbers\n" + even);
+        Console.WriteLine("odd numbers\n" + odd);
+        Console.WriteLine("\nSum of even numbers\n" + sum_even);
+        Console.WriteLine("Sum of odd numbers\n" + sum_odd + "\n");
+    }
+}
