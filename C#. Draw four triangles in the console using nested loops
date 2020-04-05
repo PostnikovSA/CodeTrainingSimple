@@ -1,0 +1,92 @@
+/*
+https://www.youtube.com/watch?v=KCv5gNkbS9c&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=28
+
+Author: #SimpleCode.
+
+Task: Draw four triangles in the console using nested loops.
+
+Задача: Отрисовать в консоли четыре треугольника с помощью вложенных циклов.
+*/
+
+using System;
+class four_triangles
+{
+    static void Main()
+    {
+        
+        int y_high = 10;
+        int x_low = 1;
+
+        for (int i = 0; i < y_high; i++)
+        {
+            for (int j = 0; j < x_low; j++)
+            {
+                Console.Write("#");
+            }
+            x_low++;
+            Console.WriteLine();
+        }
+        Console.WriteLine("\n");
+
+
+        y_high = 10;
+        int x_high = 10;
+
+        for (int i = 0; i < y_high; i++)
+        {
+            for (int j = 0; j < x_high; j++)
+            {
+                Console.Write("#");
+            }
+            x_high--;
+            Console.WriteLine();
+        }
+        Console.WriteLine("\n");
+
+
+        y_high = 10;
+        x_low = 1;
+        x_high = 9;
+
+        for (int i = 0; i < y_high; i++)
+        {
+            for (int j = 0; j < x_high; j++)
+            {
+                Console.Write(" ");
+            }
+
+            for (int k = 0; k < x_low; k++)
+            {
+                Console.Write("#");
+            }
+
+            x_high--;
+            x_low++;
+            Console.WriteLine();
+        }
+        Console.WriteLine("\n");
+
+
+        y_high = 10;
+        x_low = 1;
+        x_high = 10;
+
+        for (int i = 0; i < y_high; i++)
+        {
+            for (int j = 0; j < x_high; j++)
+            {
+                Console.Write("#");
+            }
+
+            for (int k = 0; k < x_low; k++)
+            {
+                Console.Write(" ");
+            }
+
+            x_high--;
+            x_low++;
+            Console.WriteLine();
+        }
+        Console.WriteLine("\n");
+    }
+}
