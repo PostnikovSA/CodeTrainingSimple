@@ -1,0 +1,58 @@
+/*
+https://www.youtube.com/watch?v=NuSiv5Dq6gY&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=40  08:30
+
+Author: #SimpleCode.
+
+Task: Find non-repeating numbers in an array and transfer them to a new array.
+
+Задача: Найти неповторяющиеся числа в массиве и перенести их в новый массив.
+*/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace NonRepeatingNumbersNewArray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numArray = { 1, 1, 1, 2, 3, 2, -3, 10, 20, 0, 10, 10, 20, 20 };
+            int indexNewNumberArray = -1;
+            int uniqueNumberSearchCounter;
+            
+            for (int i = 0; i < numArray.Length; i++)
+            {
+                uniqueNumberSearchCounter = 0;
+
+                for (int j = 0; j < numArray.Length; j++)
+                {
+                    if ((numArray[i] == numArray[j]) & (i != j))
+                    {
+                        
+                    }
+                    else
+                    {
+                        uniqueNumberSearchCounter++;
+                    }
+
+                    if (uniqueNumberSearchCounter == numArray.Length)
+                    {
+                        indexNewNumberArray++;
+                        
+                        int[] newNumArray = new int[indexNewNumberArray + 1];
+                        
+                        newNumArray[indexNewNumberArray] = numArray[i];
+                        
+                        Console.WriteLine(newNumArray[indexNewNumberArray]);
+                    }
+                }
+            }
+        }
+    }
+}
