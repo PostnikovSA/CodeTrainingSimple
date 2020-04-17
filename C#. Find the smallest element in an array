@@ -1,0 +1,39 @@
+/*
+https://www.youtube.com/watch?v=YN7P5y12FfE&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=39
+
+Author: #SimpleCode.
+
+Task: Find the smallest element in an array.
+
+Задача: Найти наименьший элемент в массиве.
+*/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace minNumberArray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numArray = { 1, 1, 1, 2, 3, 2, -3, 10, 20, 0, 10, 10, 20, -10, 30 };
+
+            int minNumber = numArray[0];
+
+            for (int i = 0; i < numArray.Length; i++)
+            {
+                if (minNumber > numArray[i])
+                {
+                    minNumber = numArray[i];
+                }
+            }
+            Console.WriteLine(minNumber);
+        }
+    }
+}
