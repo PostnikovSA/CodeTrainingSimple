@@ -8,13 +8,7 @@ Task: Find the smallest element in an array.
 Задача: Найти наименьший элемент в массиве.
 */
 
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace minNumberArray
 {
