@@ -1,0 +1,52 @@
+/*
+https://www.youtube.com/watch?v=NLu9y4LKXQ0&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=51&t=1s
+
+Author: #SimpleCode.
+
+Task: Put numbers from 0 to 9 in a three-dimensional array gear with output to the console.
+
+Задача: Поместить числа от 0 до 9 в тримерный массив зубчатый с выводом на консоль.
+*/
+
+using System;
+
+namespace ThreeDimensionalArrayGear
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+
+            int[][][] myArray = new int [random.Next(2,4)][][];
+
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                myArray[i] = new int [random.Next(2, 6)][];
+                for (int j = 0; j < myArray[i].Length; j++)
+                {
+                    myArray[i][j] = new int[random.Next(2, 8)];
+                    for (int k = 0; k < myArray[i][j].Length; k++)
+                    {
+                        myArray[i][j][k] = random.Next(9);
+                    }
+                }
+            }
+
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                Console.WriteLine("Page: "+i);
+                for (int j = 0; j < myArray[i].Length; j++)
+                {
+                    
+                    for (int k = 0; k < myArray[i][j].Length; k++)
+                    {
+                        Console.Write(myArray[i][j][k]+" ");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
