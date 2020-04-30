@@ -1,0 +1,49 @@
+/*
+https://www.youtube.com/watch?v=NLu9y4LKXQ0&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=51&t=1s
+
+Author: #SimpleCode.
+
+Task: Put numbers from 0 to 9 in a trimeric array with output to the console.
+
+Задача: Поместить числа от 0 до 9 в тримерный массив с выводом на консоль.
+*/
+
+using System;
+
+namespace TreimetricArray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+
+            int[,,] myArray = new int[random.Next(2, 4), random.Next(2, 6), random.Next(2, 8)];
+
+            for (int i = 0; i < myArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < myArray.GetLength(1); j++)
+                {
+                    for (int k = 0; k < myArray.GetLength(2); k++)
+                    {
+                        myArray[i, j, k] = random.Next(9);
+                    }
+                }
+            }
+
+            for (int i = 0; i < myArray.GetLength(0); i++)
+            {
+                Console.WriteLine("Page: "+i);
+                for (int j = 0; j < myArray.GetLength(1); j++)
+                {
+                    for (int k = 0; k < myArray.GetLength(2); k++)
+                    {
+                        Console.Write(myArray[i,j,k]+" ");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
