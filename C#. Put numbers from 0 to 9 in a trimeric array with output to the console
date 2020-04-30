@@ -3,14 +3,14 @@ https://www.youtube.com/watch?v=NLu9y4LKXQ0&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjL
 
 Author: #SimpleCode.
 
-Task: Put numbers from 0 to 9 in a trimeric array with output to the console.
+Task: Put numbers from 0 to 9 in a three-dimensional array with output to the console.
 
 Задача: Поместить числа от 0 до 9 в тримерный массив с выводом на консоль.
 */
 
 using System;
 
-namespace TreimetricArray
+namespace ThreeDimensionalArray
 {
     class Program
     {
