@@ -8,13 +8,7 @@ Task: Find non-repeating numbers in an array and transfer them to a new array.
 Задача: Найти неповторяющиеся числа в массиве и перенести их в новый массив.
 */
 
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace NonRepeatingNumbersNewArray
 {
