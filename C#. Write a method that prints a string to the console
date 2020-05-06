@@ -1,0 +1,61 @@
+/*
+https://www.youtube.com/watch?v=Xk8vRnm6xtc&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=52&t=1s   24:30
+
+Author: #SimpleCode.
+
+Task: Write a method that prints a string to the console.
+
+Задача: Написать метод, который выводит на консоль строку.
+*/
+
+using System;
+
+namespace WriteStringOnConsole
+{
+    class Program
+    {
+        static void Main()
+        {
+            string symbols = EnterSymbols();
+
+            int number = EnterNumber();
+
+            WriteStringOnConsole(symbols, number);
+        }
+
+        static string EnterSymbols()
+        {
+            Console.Write("Enter symbols: ");
+            string enterSymbols = Console.ReadLine();
+            return enterSymbols;
+        }
+
+        static int EnterNumber()
+        {
+            Console.Write("Enter number of symbols: ");
+            int enterNumber;
+            while (true)
+            {
+                bool b_enterNumber = int.TryParse(Console.ReadLine(), out enterNumber);
+                if (b_enterNumber)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Error, try enter only one number!");
+                }
+            }
+            return enterNumber;
+        }
+
+        static void WriteStringOnConsole(string symbols, int number)
+        {
+            for (int i = 0; i < number; i++)
+            {
+                Console.Write(symbols);
+            }
+            Console.WriteLine();
+        }
+    }
+}
