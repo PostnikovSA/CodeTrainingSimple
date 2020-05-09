@@ -1,0 +1,67 @@
+/*
+https://www.youtube.com/watch?v=Xk8vRnm6xtc&list=PLQOaTSbfxUtD6kMmAYc8Fooqya3pjLs1N&index=52&t=1s   25:20
+
+Author: #SimpleCode.
+
+Task: Write a method to find the index of an array element (return the index of the first element found).
+
+Задача: Написать метод для поиска индекса элемента массива (вернуть индекс первого найденого элемента).
+*/
+
+using System;
+
+namespace ToFindTheIndex
+{
+    class Program
+    {
+        static void Main()
+        {
+            SearchIndex (CreateArray());
+        }
+
+        static int [] CreateArray()
+        {
+            Random random = new Random();
+
+            Console.WriteLine("Numbers in an array: ");
+
+            int[] myArray = new int[random.Next(10, 20)];
+
+            for (int i = 0; i < myArray.Length; i++)
+            {
+                myArray[i] = random.Next(1, 10);
+                Console.Write(myArray[i]+" ");
+            }
+            Console.WriteLine("\n");
+            return myArray;
+        }
+
+        static void SearchIndex (int [] myArray)
+        {
+            Random random = new Random();
+
+            int number = random.Next(1, 10);
+            Console.WriteLine("Number from searching: "+"\n"+number+"\n");
+
+            int count = 0;
+            int j = 0;
+
+            for (j = 0; j < myArray.Length; j++)
+            {
+                if (number == myArray[j])
+                {
+                    Console.WriteLine("Index of the first element found in the array: "+"\n"+j+"\n");
+                    break;
+                }
+                else
+                {
+                    count++;
+                }
+            }
+            if (count == myArray.Length)
+            {
+                Console.WriteLine("No matches! Try agayn!");
+            }
+        }
+    }
+}
