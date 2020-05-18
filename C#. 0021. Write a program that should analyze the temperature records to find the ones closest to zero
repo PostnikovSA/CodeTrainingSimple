@@ -1,0 +1,75 @@
+/*
+https://www.codingame.com/training/easy/temperatures
+
+Author: larryjoe.
+
+Task: Write a program that should analyze the temperature records to find the ones closest to zero.
+
+Задача: Написать программу, которая должна анализировать записи температур, чтобы найти наиболее близкие к нулю.
+*/
+
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+ 
+class Solution
+{
+    static void Main(string[] args)
+    {
+        int n = int.Parse(Console.ReadLine()); // the number of temperatures to analyse
+
+        int result = 0;
+
+        if (n != 0)
+        {
+            string[] str_inputs = Console.ReadLine().Split(' ');
+            int[] inputs = new int[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                int t = int.Parse(str_inputs[i]);// a temperature expressed as an integer ranging from -273 to 5526
+                inputs[i] = t;
+            }
+
+
+            int[] inputsPositive = new int[inputs.Length];
+
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                if (inputs[i] <= -1) inputsPositive[i] = -inputs[i];
+
+                if (inputs[i] >= 1) inputsPositive[i] = inputs[i];
+
+                if (inputs[i] == 0) inputsPositive[i] = inputs[i];
+            }
+
+
+            int distance = inputsPositive[0];
+            result = inputs[0];
+
+            for (int j = 1; j < inputsPositive.Length; j++)
+            {
+                if (inputsPositive[j] < distance)
+                {
+                    distance = inputsPositive[j];
+                    result = inputs[j];
+                }
+            }
+
+
+            for (int k = 1; k < inputsPositive.Length; k++)
+            {
+                if ((distance == inputsPositive[k]) && (inputs[k] > 0)) result = inputs[k];
+            }
+        }
+        Console.WriteLine(result);        
+    }
+}
