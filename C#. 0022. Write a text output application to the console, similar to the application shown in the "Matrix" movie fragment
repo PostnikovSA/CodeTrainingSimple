@@ -1,0 +1,75 @@
+/*
+https://www.youtube.com/watch?v=nMyGA0wOk4g&t=1580s  50:00
+
+Author: Code Blog.
+
+Task: Write a text output application to the console, similar to the application shown in the "Matrix" movie fragment.
+
+Задача: Написать приложение вывода текста на консоль, похожее на приложение продемонстрированное в фрагменте фильма "Матрица".
+*/
+
+using System;
+using System.Threading;
+
+namespace likeMatrix
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WindowHeight = Console.LargestWindowHeight;
+            Console.WindowWidth = Console.LargestWindowWidth;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.CursorVisible = false;
+
+            Thread.Sleep(1000);
+
+            string [] firstMessage = {"W","a","k","e"," ","u","p",","," ","N","e","o",".",".","."};
+            for (int i = 0; i < firstMessage.Length; i++)
+            {
+                Console.Write(firstMessage[i]);
+                Thread.Sleep(100);
+            }
+
+            Thread.Sleep(3000);
+
+            Console.Clear();
+
+            Thread.Sleep(1000);
+
+            string[] secondMessage = { "T", "h", "e", " ", "M", "a", "t", "r", "i", "x", " ", "h", "a", "s", " ", "y", "o", "u", ".", ".", "." };
+            for (int i = 0; i < secondMessage.Length; i++)
+            {
+                Console.Write(secondMessage[i]);
+                Thread.Sleep(100);
+            }
+
+            Thread.Sleep(3000);
+
+            Console.Clear();
+
+            Thread.Sleep(1000);
+
+            string[] thirdMessage = { "F", "o", "l", "l", "o", "w", " ", "t", "h", "e", " ", "w", "h", "i", "t", "e", " ", "r", "a", "b", "b", "i", "t", "." };
+            for (int i = 0; i < thirdMessage.Length; i++)
+            {
+                Console.Write(thirdMessage[i]);
+                Thread.Sleep(100);
+            }
+
+            Thread.Sleep(1000);
+
+            Console.Clear();
+
+            Thread.Sleep(1000);
+
+            string[] lastMessage = { "Knock, knock, Neo." };
+            for (int i = 0; i < lastMessage.Length; i++)
+            {
+                Console.Write(lastMessage[i]);
+                Thread.Sleep(100);
+            }
+            Console.ReadKey();
+        }
+    }
+}
