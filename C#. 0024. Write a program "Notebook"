@@ -1,0 +1,94 @@
+/*
+SkillBox. HomeWork_2.6. Базовые возможности C#.
+
+Author: Сергей Камянецкий.
+
+Task: Write a program "Notebook".
+
+Задача: Написать программу "Записная книжка". 
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+namespace SkillBox_HomeWork_2v01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Write UserName.
+            Console.Write($"Write UserName: ");
+            string UserName = Console.ReadLine();
+            Console.Clear();
+            
+            
+            // Write UserAge.
+            byte UserAge;
+            byte MinUserAge = 0;
+            byte MaxUserAge = 100;
+            while (true)
+            {
+                Console.Write($"Write UserAge: ");
+                bool b_UserAge = byte.TryParse(Console.ReadLine(), out UserAge);
+                if ((b_UserAge == true)&&(UserAge >= MinUserAge)&&(UserAge <= MaxUserAge)) break;
+                else if (b_UserAge == false) Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                else if ((UserAge < MinUserAge) || (UserAge > MaxUserAge)) Console.WriteLine($"Error! Enter numbers from {MinUserAge} to {MaxUserAge}.\n");
+            }
+            Console.Clear();
+            
+            
+            // Write UserHeight.
+            short UserHeight;
+            short MinUserHeight = 0;
+            short MaxUserHeight = 300;
+            while (true)
+            {
+                Console.Write($"Write UserHeight: ");
+                bool b_UserHeight = short.TryParse(Console.ReadLine(), out UserHeight);
+                if ((b_UserHeight == true)&&(UserHeight >= MinUserHeight)&&(UserHeight <= MaxUserHeight)) break;
+                else if (b_UserHeight == false) Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                else if ((UserHeight < MinUserHeight) || (UserHeight > MaxUserHeight)) 
+                {
+                    Console.WriteLine($"Error! Enter numbers from {MinUserHeight} to {MaxUserHeight}.\n");
+                }
+            }
+            Console.Clear();
+            
+            
+            // Write UserScore.
+            string [] NamesOfScience = {"History", "Math", "RuLang"};
+            byte [] ScoreScience = new byte [NamesOfScience.Length];
+            byte MinScoreScience = 1;
+            byte MaxScoreScience = 5;
+            byte SumScoreScience = 0;
+            decimal AverageScoreScience = 0;
+            
+            for (int i=0; i<NamesOfScience.Length; i++)
+            {
+                while (true)
+                {
+                    Console.Write($"Write UserScore in {NamesOfScience[i]}: ");
+                    bool b_ScoreScience = byte.TryParse(Console.ReadLine(), out ScoreScience[i]);
+                    if ((b_ScoreScience == true)&&(ScoreScience[i] >= MinScoreScience)&&(ScoreScience[i] <= MaxScoreScience)) break;
+                    else if (b_ScoreScience == false) Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                    else if ((ScoreScience[i] < MinScoreScience) || (ScoreScience[i] > MaxScoreScience)) 
+                    {
+                        Console.WriteLine($"Error! Enter numbers from {MinScoreScience} to {MaxScoreScience}.\n");
+                    }
+                }
+                Console.Clear();
+                SumScoreScience += ScoreScience[i];
+            }
+            AverageScoreScience = SumScoreScience / NamesOfScience.Length;
+            
+            
+            // Console output of notebook data.
+            
+            Console.WriteLine($"Console output of notebook data.\n\nUserName: {UserName}\nUserAge: {UserAge}\nUserHeight: {UserHeight}\nAverageScoreSience: {AverageScoreScience}");
+        }
+    }
+}
