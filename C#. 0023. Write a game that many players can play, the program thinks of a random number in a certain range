@@ -1,0 +1,254 @@
+/*
+SkillBox. HomeWork_3.10. Управляющие конструкции: ветвление и циклы.
+
+Author: Сергей Камянецкий.
+
+Task: Write a game that many players can play. At the start, players are asked to enter their nicknames.
+The program thinks of a random number in a certain range, depending on the difficulty level and the number of players, telling this number to the players.
+That player wins, after which the hidden number will turn to zero. The game congratulates the winner, inviting him to play again.
+
+Задача: Написать игру в которую могут играть множество игроков. При старте, игракам предлагается ввести свои никнеймы. 
+Программа загадывает случайное число в определенном диапозоне, взависимости от уровня сложности и количества игроков, сообщая это число игрокам.
+Выйграет тот игрок, после чего хода загаданное число обратится к ноль. Игра поздравляет победителя, предлагая сыграть ещё раз.
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+namespace SkillBox_HomeWork_3v10
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //0//
+            // Create Retry cycle
+            bool Retry = true;
+            
+            while (Retry)
+            {
+                Console.Clear();
+                Random Randomize = new Random();
+
+                //1//
+                // Numbers of players in the game
+                int UserTry;
+                int NumberOfPlayers;
+                int MinPlayers = 2;
+                int MaxPlayers = 10;
+                
+                while (true)
+                {
+                    
+                    Console.Write($"How many players will play? Enter a number: ");
+                    bool b_NumberOfPlayers = int.TryParse(Console.ReadLine(), out NumberOfPlayers);
+                    if ((b_NumberOfPlayers == true) && (NumberOfPlayers >= MinPlayers) && (NumberOfPlayers <= MaxPlayers)) break;
+                    else if (b_NumberOfPlayers == false)
+                    {
+                        Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                        Thread.Sleep(1000);
+                    }
+                    else if ((NumberOfPlayers < MinPlayers) || (NumberOfPlayers > MaxPlayers))
+                    {
+                        Console.WriteLine($"Error! Player selection range from {MinPlayers} to {MaxPlayers}. Try again.\n");
+                        Thread.Sleep(1000);
+                    }
+                }
+                Console.Clear();
+    
+    
+                //2//
+                // How many AI opponents?
+                int[] HaveAI = new int[NumberOfPlayers];
+                int AIplayers;
+                
+                while (true) 
+                {
+                    Console.Write($"Enter how many AI opponents will play? ");
+                    bool b_AIplayers = int.TryParse(Console.ReadLine(), out AIplayers);
+                    if ((b_AIplayers == true)&&(AIplayers >= MinPlayers-1)&&(AIplayers <= NumberOfPlayers))
+                    {
+                        break;
+                    }
+                    else if (b_AIplayers == false)
+                    {
+                        Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                        Thread.Sleep(1000);
+                    }
+                    else if ((AIplayers <= MinPlayers-1) || (AIplayers > NumberOfPlayers))
+                    {
+                        Console.WriteLine($"Error! AI opponents selection range from {MinPlayers-1} to {NumberOfPlayers}. Try again.\n");
+                        Thread.Sleep(1000);
+                    }
+                }
+                
+                for (int i = 0; i < NumberOfPlayers; i++)
+                {
+                    if (AIplayers <= i) HaveAI[i] = 0;
+                    else HaveAI[i] = 1;
+                    Console.WriteLine(HaveAI[i]);
+                }
+                Console.Clear();
+                
+                
+                //3//
+                // Give players nicknames
+                string[] NickName = new string[NumberOfPlayers];
+                string FindDouble;
+                int Double = 0;
+                int Success;
+    
+                for (int i = 0; i < NumberOfPlayers; i++)
+                {
+                    while (true)
+                    {
+                        Success = 0;
+    
+                        if (HaveAI[i] == 1)
+                        {
+                            NickName[i] = $"Bot №{i+1}";
+                            Success = NumberOfPlayers;
+                        }
+                        else 
+                        {
+                            Console.Write($"Enter NickName Player №{i+1}: ");
+                            FindDouble = Console.ReadLine();
+    
+                            for (int j = 0; j < NumberOfPlayers; j++)
+                            {
+                                Double = 0;
+    
+                                if (FindDouble == NickName[j])
+                                {
+                                    Console.WriteLine($"Error! NickNames can't be a double. Try again.\n");
+                                    Thread.Sleep(1000);
+                                    Double++;
+                                }
+                                else
+                                {
+                                    Success++;
+                                }
+                            }
+                            if (Double == 0) NickName[i] = FindDouble;
+                        }
+                        if (Success == NumberOfPlayers) break;
+                    }
+                    if (HaveAI[i] == 0)
+                    {
+                        Console.Clear();
+                    }
+                }
+                Console.Clear();
+    
+    
+                //4//
+                // Difficulty of the game
+                int Difficulty;
+                
+                while (true)
+                {
+                    Console.Write ($"Enter a number to select the difficulty of the game!\nEnter (1) - Easy\nEnter (2) - Normal\nEnter (3) - Hard\n");
+                    bool b_Difficulty = int.TryParse(Console.ReadLine(), out Difficulty);
+                    if ((b_Difficulty == true)&&(Difficulty == 1)|(Difficulty == 2)|(Difficulty == 3)) 
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                    }
+                }
+                Console.Clear();
+    
+    
+                //5//
+                // Range of user try
+                int MinUserTryRange = 1;
+                int MaxUserTryRange = NumberOfPlayers * Difficulty;
+                int RandomTryRange = Randomize.Next(MinUserTryRange, MaxUserTryRange);
+                
+                
+                //6//
+                // Create Hidden Number
+                int MinGameNumberRange = NumberOfPlayers * Difficulty * RandomTryRange * MinPlayers;
+                int MaxGameNumberRange = NumberOfPlayers * Difficulty * RandomTryRange * MaxPlayers;
+                int GameNumber = Randomize.Next(MinGameNumberRange, MaxGameNumberRange + 1);
+             
+    
+                //7//
+                // Show on the console Hidden Number
+                Console.Write($"Hidden number: {GameNumber}");
+                Thread.Sleep(2000);
+                Console.Clear();
+    
+    
+                //8//
+                // Start a game
+                int WinGame = 0;
+                Console.WriteLine($"A game started!\nEnter a number in the range from {MinUserTryRange} to {MaxUserTryRange}.\n");
+                
+                while (true)
+                {
+                    if (GameNumber <= WinGame)
+                    {
+                        break;
+                    }
+                    else 
+                    for (int i = 0; i < NumberOfPlayers; i++)
+                    {
+                        Console.Write($"Hidden number: {GameNumber}\n");
+                        if ((GameNumber < MaxUserTryRange)&&(HaveAI[i]==1))
+                        {
+                            UserTry = GameNumber;
+                        }
+                        else
+                        {
+                            if (HaveAI[i] == 0)
+                            {
+                                while (true)
+                                {
+                                    Console.Write($"Turn {NickName[i]}: ");
+                                    bool b_UserTry = int.TryParse(Console.ReadLine(), out UserTry);
+                                    if ((b_UserTry == true)&&(UserTry >= MinUserTryRange)&&(UserTry <= MaxUserTryRange)) break;
+                                    else Console.WriteLine($"\nError! Enter a number in the range from {MinUserTryRange} to {MaxUserTryRange}. Try again.");
+                                }
+                                Console.WriteLine();
+                            }
+                            else
+                            {
+                                UserTry = Randomize.Next(MinUserTryRange, MaxUserTryRange+1);    
+                            }
+                        }
+                        if (HaveAI [i] == 1) 
+                        {
+                            Console.WriteLine($"Turn {NickName[i]}: {UserTry}\n");
+                            Thread.Sleep(1000);
+                        }
+                        GameNumber = GameNumber - UserTry;
+                        if (GameNumber <= WinGame)
+                        {
+                            Console.WriteLine($"\n{NickName[i]} as Winner! Сongratulations!\n");
+                            break;
+                        }
+                        
+                    }
+                }
+                
+                int Chose;
+                while(true)
+                {
+                    Console.WriteLine($"Retry?\n\nEnter (1) - Yes\nEnter (2) - No");
+                    bool b_Chose = int.TryParse(Console.ReadLine(), out Chose);
+                    if ((b_Chose == true)&&(Chose == 1)||(Chose == 2)) break;
+                    else Console.WriteLine($"Error! Enter only whole numbers. Try again.\n");
+                }
+                if (Chose == 1) Retry = true;
+                if (Chose == 2) Retry = false;
+            }
+            
+        }
+    }
+}
