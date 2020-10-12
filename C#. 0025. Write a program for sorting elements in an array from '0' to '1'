@@ -1,0 +1,53 @@
+/*
+SkillBox. HomeWork_4.1. Одномерные массивы.
+
+Author: Сергей Камянецкий.
+
+Task: Create an array with the ability to select the number of elements it contains. The array should only contain elements: '1' and '0'. Write a program for sorting elements in an array from '0' to '1'.
+
+Задача: Создать массив с возможностью выбора количества содержащихся в нем элементов. Массив должен содержать только элементы: '1' и '0'. Написать программу сортировка елементов в массиве от '0' до '1'. 
+*/
+
+
+using System;
+class Program 
+{
+    static void Main() 
+    {
+        Random Randomize = new Random();
+        
+        Console.Write($"Enter how many elements to set in the array: ");
+        int Elements;
+        while(true)
+        {
+            bool b_Elements = int.TryParse(Console.ReadLine(),out Elements);
+            if ((b_Elements == true)&&(Elements>=0))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine($"Error! Enter only whole and positive numbers. Try again.\n");
+            }
+        }
+        int [] Numbers = new int [Elements];
+        int FindZeros = 0;
+        
+        Console.Write($"Source: ");
+        for (int i = 0; i < Numbers.Length; i++)
+        {
+            Numbers[i] = Randomize.Next(0, 2);
+            if (Numbers[i] == 0) FindZeros++; 
+            Console.Write(Numbers[i]);
+        }
+        Console.WriteLine($"\nZeros in array: {FindZeros}\n");
+        
+        Console.Write($"Result: ");
+        for (int i = 0; i < Numbers.Length; i++)
+        {
+            if (i < FindZeros)Numbers[i] = 0;
+            else Numbers[i] = 1;
+            Console.Write(Numbers[i]);
+        }
+    }
+}
