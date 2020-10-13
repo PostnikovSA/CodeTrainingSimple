@@ -1,0 +1,32 @@
+/*
+SkillBox. HomeWork_4.3. Вложенные циклы.
+
+Author: Сергей Камянецкий.
+
+Task: Write the multiplication table from 1 to 10.
+
+Задача: Написать таблицу умножения от 1 до 10.
+*/
+
+
+using System;
+class Program 
+{
+    static void Main() 
+    {
+        int [] Numbers = new int [10];
+        for (int i=0; i<Numbers.Length; i++)
+        {
+            Numbers [i] = i+1;
+        }
+        
+        for (int i=0; i<Numbers.Length; i++)
+        {
+            for (int j=0; j<Numbers.Length; j++)
+            {
+                Console.WriteLine($"{Numbers[i]} * {Numbers[j]} = {Numbers[i]*Numbers[j]}");
+            }
+            Console.WriteLine();
+        }
+    }
+}
