@@ -24,8 +24,9 @@ class Program
             {
                 b[i,j] = a[Count];
                 Count++;
-                Console.WriteLine($"b[{i},{j}] = {b[i,j]}");
+                Console.Write($"b[{i},{j}] = {b[i,j]}\t");
             }
+            Console.WriteLine();
         }
     }
 }
