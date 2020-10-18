@@ -1,0 +1,36 @@
+/*
+SkillBox. HomeWork_4.4. Двумерные массивы - использование, задание.
+
+Author: Сергей Камянецкий.
+
+Task: For each row of the [4x4] matrix, find the sum of the elements.
+
+Задача: Для каждой строки матрицы [4х4] найти сумму элементов.
+*/
+
+
+using System;
+class Program
+{
+    static void Main()
+    {
+        Random Randomize = new Random();
+
+        int[,] a = new int[4, 4];
+        int[] SumRow = new int[a.GetLength(0)];
+
+        Console.WriteLine($"Source matrix:");
+
+        for (int i = 0; i < a.GetLength(0); i++)
+        {
+            for (int j = 0; j < a.GetLength(1); j++)
+            {
+                a[i, j] = Randomize.Next(1, 10);
+                SumRow[i] += a[i, j];
+                Console.Write($"{a[i, j]}\t");
+            }
+            Console.WriteLine($"SumRow{i}: {SumRow[i]}");
+        }
+
+    }
+}
