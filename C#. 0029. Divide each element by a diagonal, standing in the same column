@@ -1,0 +1,48 @@
+/*
+SkillBox. HomeWork_4.4. Двумерные массивы - использование, задание.
+
+Author: Сергей Камянецкий.
+
+Task: In the [3x3] matrix, divide each element by a diagonal, standing in the same column.
+
+Задача: В матрице [3x3] каждый элемент разделить на диагональный, стоящий в том же столбе.
+*/
+
+
+using System;
+class Program
+{
+    static void Main()
+    {
+        Random Randomize = new Random();
+
+        double[,] a = new double[3, 3];
+        double[,] b = new double[3, 3];
+        int Count = 0;
+
+        Console.WriteLine($"Source matrix:");
+
+        for (int i = 0; i < a.GetLength(0); i++)
+        {
+            for (int j = 0; j < a.GetLength(1); j++)
+            {
+                a[i, j] = Randomize.Next(1, 10);
+                Console.Write($"{a[i, j]}\t");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine($"\nResult matrix:");
+        for (int i = 0; i < a.GetLength(0); i++)
+        {
+            for (int j = 0; j < a.GetLength(1); j++)
+            {
+                b[i, j] = a[i, j] / a[Count, Count];
+                Console.Write($"{a[i, j]} / {a[Count, Count]} = {string.Format("{0:0.00}", b[i, j])}\t");
+            }
+            Count++;
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+    }
+}
