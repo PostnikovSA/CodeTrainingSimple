@@ -1,0 +1,103 @@
+/*
+SkillBox. HomeWork_4.8. Задание 1.
+
+Author: Сергей Камянецкий.
+
+Task: Create a visualization of a table with the calculation and output of profit consisting of income and expense indicators for a period of 12 months.
+Add the ability to withdraw months with a positive profit.
+Add the ability to display the 3 worst indicators by month, with the worst profit. If there are matches, then print them too.
+
+Задача: Создать визуализацию таблицы с подсчетом и выводом прибыли состоящей из показателей прихода и расхода за период из 12 месяцев.
+Добавить возможность вывода месяцев с положительною прибылью.
+Добавить возможность вывода 3-х худших показателей по месяцам, с худшей прибылью. Если есть совпадения, то и их вывести тоже.
+*/
+
+
+using System;
+using System.Linq;
+class Program
+{
+    static void Main() 
+    {
+        // Create a random
+        Random Randomize = new Random();
+        
+        
+        // Bild a table
+        int [] Months = new int [12];
+        int [] InFlow = new int [12];
+        int [] OutFlow = new int [12];
+        int [] Profit = new int [12];
+        
+        for (int i = 0; i < InFlow.Length; i++) 
+        {
+            InFlow[i] = Randomize.Next(0, 10);
+            OutFlow[i] = Randomize.Next(0, 10);
+            Months[i] = i+1;
+            Profit[i] = InFlow[i] - OutFlow[i];
+        }
+        
+        
+        // Months with a positive profit
+        int ProfitMonths = 0;
+        
+        Console.Write($"Month\tInFlow, Rub\tOutFlow, Rub\tProfit, Rub\n");
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            Console.Write($"{Months[i]}\t{InFlow[i]}\t\t{OutFlow[i]}\t\t{Profit[i]}\n");
+            if (Profit[i] >= 0) ProfitMonths++;
+        }
+        Console.Write($"\nMonths with a positive profit: {ProfitMonths}");
+        
+        
+        // Worst profit in months: ...
+        Console.Write($"\nWorst profit in months: ");
+        
+        // Find 3nd min profit
+        int ThirdMinProfitMonth = Profit.Min();
+        int IndexThirdMinProfitMonth = Array.IndexOf(Profit, ThirdMinProfitMonth);
+        Console.Write($"{IndexThirdMinProfitMonth+1} ({ThirdMinProfitMonth}), ");
+        
+        // find Double 3nd min profit
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            if ((Profit[i] == ThirdMinProfitMonth)&&(i!=IndexThirdMinProfitMonth)) Console.Write($"{i+1} ({ThirdMinProfitMonth}), ");
+        }
+        
+        // find 2nd min profit
+        int SecondMinProfitMonth = Profit.Max();
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            if ((Profit[i] < SecondMinProfitMonth)&&(Profit[i] != ThirdMinProfitMonth))
+            {
+                SecondMinProfitMonth = Profit[i];
+            }
+        }
+        int IndexSecondMinProfitMonth = Array.IndexOf(Profit,SecondMinProfitMonth);
+        Console.Write($"{IndexSecondMinProfitMonth+1} ({SecondMinProfitMonth}), ");
+        
+        // find Double 2nd min profit
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            if ((Profit[i] == SecondMinProfitMonth)&&(i!=IndexSecondMinProfitMonth)) Console.Write($"{i+1} ({SecondMinProfitMonth}), ");
+        }
+        
+        // find 1nd min profit
+        int FirstMinProfitMonth = Profit.Max();
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            if ((Profit[i] < FirstMinProfitMonth) && (Profit[i] != SecondMinProfitMonth) && (Profit[i] != ThirdMinProfitMonth))
+            {
+                FirstMinProfitMonth = Profit[i];
+            }
+        }
+        int IndexFirstMinProfitMonth = Array.IndexOf(Profit,FirstMinProfitMonth);
+        Console.Write($"{IndexFirstMinProfitMonth+1} ({FirstMinProfitMonth}), ");
+        
+        // find Double 1nd min profit
+        for (int i = 0; i < Profit.Length; i++)
+        {
+            if ((Profit[i] == FirstMinProfitMonth)&&(i!=IndexFirstMinProfitMonth)) Console.Write($"{i+1} ({FirstMinProfitMonth}), ");
+        }
+    }
+}
