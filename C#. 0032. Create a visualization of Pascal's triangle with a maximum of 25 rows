@@ -1,0 +1,73 @@
+/*
+SkillBox. HomeWork_4.8. Задание 2.
+
+Author: Сергей Камянецкий.
+
+Task: Create a visualization of Pascal's triangle with a maximum of 25 rows.
+
+Задача: Создать визуализацию треугольника Паскаля с максимальным количеством строк: 25.
+*/
+
+
+using System;
+using System.Linq;
+class Program
+{
+    static void Main()
+    {
+        // Numbers of row
+        int n;
+        Console.Write($"Enter how many rows there will be in pascal's triangle: ");
+        while (true)
+        {
+            bool b_n = int.TryParse(Console.ReadLine(), out n);
+            if ((b_n == true)&&(n < 26)&&(n > 0)) break;
+            else Console.WriteLine($"Error! Enter only whole numbers in range 1 to 25. Try again");
+        
+        }
+
+
+        // Create a jagged array
+        int[][] TablePaskal = new int[n][];
+        for (int i = 0; i < n; i++)
+        {
+            TablePaskal[i] = new int[i+1];
+        }
+
+
+        // Add values to a jagged array
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < TablePaskal[i].Length; j++)
+            {
+                if ((i == 0) && (j == 0)) TablePaskal[i][j] = 1; // Row 0       
+                if (j == 0) TablePaskal[i][j] = 1; // First row
+                if (j == 1) TablePaskal[i][j] = i; // Second row
+                if (j == TablePaskal[i].Length - 1) TablePaskal[i][j] = 1; // Last row
+                if (j == TablePaskal[i].Length - 2) TablePaskal[i][j] = i; // Penult row
+                if ((j > 1) && (j < TablePaskal[i].Length - 2)) TablePaskal[i][j] = TablePaskal[i-1][j-1]+ TablePaskal[i-1][j]; // The sum of two numbers, the row higher above the diagonal
+            }
+        }
+
+
+        // Draw Pascal's triangle
+        int CountSpice = 0;
+        for (int i = 0; i < n; i++)
+        {
+            CountSpice = n-i;
+            for (int j = 0;  j < TablePaskal[i].Length; j++)
+            {
+                while (CountSpice != 0) 
+                {
+                    Console.Write($" ");
+                    CountSpice--;
+                }
+                if (TablePaskal[i].Length % 2 == 0)
+                Console.Write($"{TablePaskal[i][j]} ");
+                else Console.Write($"{TablePaskal[i][j]} ");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+    }
+}
