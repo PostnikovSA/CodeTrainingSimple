@@ -1,0 +1,152 @@
+/*
+SkillBox. HomeWork_4.8. Задание 3.1.
+
+Author: Сергей Камянецкий.
+
+Task: Write a program that allows you to multiply a mathematical matrix by a number.
+Add the ability to enter the number of rows and columns of the matrix, as well as the number by which multiplication will be performed.
+
+Задача: Написать программу позволяющая умножать математическую матрицу на число.
+Добавить возможность ввода количества строк и столбцов матрицы, а также число на которое будет производится умножение.
+*/
+
+
+using System;
+using System.Linq;
+using System.Threading;
+class Program
+{
+    static void Main()
+    {
+        // Calculate the maximum multi-digit of possible numbers of integer types
+        int MaxMultiDigit = 0;
+        
+        for (int i = 10; i < int.MaxValue / 2; i *= 10) MaxMultiDigit++;
+   
+   
+        // Calculate a range of numbers to determine the number of padding elements
+        int [] RangeNumOfPadding = new int [MaxMultiDigit];
+        
+        int Count = 0;
+        for (int i = 10; i < int.MaxValue / 2; i *= 10)
+            {
+                RangeNumOfPadding [Count] = i-1;
+                Count++;
+            }
+     
+    
+        // Create ranges from {MinNum} to {MaxNum}
+        int MinNumAll = 1;
+        int MaxNumRows = 50;
+        int MaxNumColumns = 15;
+        int MaxNumMatrix = 10000;
+    
+    
+        // Enter number of Rows
+        int Rows;
+        while (true)
+        {
+            Console.Write($"Enter number of Rows in the range from {MinNumAll} to {MaxNumRows}: ");
+            string s_Rows = Console.ReadLine();
+            bool b_Rows = int.TryParse(s_Rows, out Rows);
+            if ((b_Rows == true)&&(Rows >= MinNumAll)&&(Rows <= MaxNumRows)) break;
+            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumRows}!\n");
+        }
+        Console.Clear();
+        
+        
+        // Enter number of Columns 
+        int Columns;
+        while (true)
+        {
+            Console.Write($"Enter number of Columns in the range from {MinNumAll} to {MaxNumColumns}: ");
+            string s_Columns = Console.ReadLine();
+            bool b_Columns = int.TryParse(s_Columns, out Columns);
+            if ((b_Columns == true)&&(Columns >= MinNumAll)&&(Columns <= MaxNumColumns)) break;
+            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumColumns}!\n");
+        }
+        Console.Clear();
+        
+        
+        // Create Random
+        Random Randomize = new Random();
+        
+        
+        // Create the original Math Matrix   
+        int [,] MathMatrix = new int [Rows, Columns];
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                MathMatrix[i,j] = Randomize.Next(MinNumAll,MaxNumMatrix+1);
+            }
+        }
+        
+        
+        // Enter the number to be multiplied by the original Math Matrix
+        int NumMultMathMatrix;
+        while (true)
+        {
+            Console.Write($"Enter the number to be multiplied by the original Math Matrix in the range from {MinNumAll} to {MaxNumMatrix}: ");
+            string s_NumMultMathMatrix = Console.ReadLine();
+            bool b_NumMultMathMatrix = int.TryParse(s_NumMultMathMatrix, out NumMultMathMatrix);
+            if ((b_NumMultMathMatrix == true)&&(NumMultMathMatrix >= MinNumAll)&&(NumMultMathMatrix <= MaxNumMatrix)) break;
+            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumMatrix}!\n");
+        }
+        Console.Clear();
+        
+        
+        // Create the New Math Matrix
+        int [,] NewMathMatrix = new int [Rows, Columns];
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                NewMathMatrix[i,j] = MathMatrix[i,j] * NumMultMathMatrix;
+            }
+        }
+        
+        
+        // Draw Math Matrix
+        Console.WriteLine($"Original Math Matrix:");
+        Thread.Sleep(10);
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                Console.Write($"{MathMatrix[i,j]}");
+                Thread.Sleep(10);
+                for (int k = 0; k < RangeNumOfPadding.Length; k++)
+                {
+                    if (MathMatrix[i,j] > RangeNumOfPadding[k]) Console.Write($"");
+                    else Console.Write($" ");
+                }
+            }
+            Console.WriteLine();
+        }
+        
+        
+        // Draw the number to be multiplied by the original Math Matrix
+        Console.WriteLine($"\nNumber to be multiplied:\n{NumMultMathMatrix}\n");
+        Thread.Sleep(10);
+        
+        
+        // Draw New Math Matrix
+        Console.WriteLine($"New Math Matrix:");
+        Thread.Sleep(10);
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                Console.Write($"{NewMathMatrix[i,j]}");
+                Thread.Sleep(10);
+                for (int k = 0; k < RangeNumOfPadding.Length; k++)
+                {
+                    if (NewMathMatrix[i,j] > RangeNumOfPadding[k]) Console.Write($"");
+                    else Console.Write($" ");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+}
