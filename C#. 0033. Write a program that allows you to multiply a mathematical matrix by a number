@@ -25,12 +25,14 @@ class Program
    
    
         // Calculate a range of numbers to determine the number of padding elements
-        int [] RangeNumOfPadding = new int [MaxMultiDigit];
+        int [] PositiveRangeNumOfPadding = new int [MaxMultiDigit];
+        int [] NegativeRangeOfPadding = new int [MaxMultiDigit];
         
         int Count = 0;
         for (int i = 10; i < int.MaxValue / 2; i *= 10)
             {
-                RangeNumOfPadding [Count] = i-1;
+                PositiveRangeNumOfPadding [Count] = i-1;
+                NegativeRangeOfPadding [Count] = (i*-1)+1;
                 Count++;
             }
      
@@ -39,6 +41,7 @@ class Program
         int MinNumAll = 1;
         int MaxNumRows = 50;
         int MaxNumColumns = 15;
+        int MinNumMatrix = -10000;
         int MaxNumMatrix = 10000;
     
     
@@ -87,10 +90,10 @@ class Program
         int NumMultMathMatrix;
         while (true)
         {
-            Console.Write($"Enter the number to be multiplied by the original Math Matrix in the range from {MinNumAll} to {MaxNumMatrix}: ");
+            Console.Write($"Enter the number to be multiplied by the original Math Matrix in the range from {MinNumMatrix} to {MaxNumMatrix}: ");
             string s_NumMultMathMatrix = Console.ReadLine();
             bool b_NumMultMathMatrix = int.TryParse(s_NumMultMathMatrix, out NumMultMathMatrix);
-            if ((b_NumMultMathMatrix == true)&&(NumMultMathMatrix >= MinNumAll)&&(NumMultMathMatrix <= MaxNumMatrix)) break;
+            if ((b_NumMultMathMatrix == true)&&(NumMultMathMatrix >= MinNumMatrix)&&(NumMultMathMatrix <= MaxNumMatrix)) break;
             else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumMatrix}!\n");
         }
         Console.Clear();
@@ -114,13 +117,13 @@ class Program
         {
             for (int j = 0; j < Columns; j++)
             {
-                Console.Write($"{MathMatrix[i,j]}");
-                Thread.Sleep(10);
-                for (int k = 0; k < RangeNumOfPadding.Length; k++)
+                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
                 {
-                    if (MathMatrix[i,j] > RangeNumOfPadding[k]) Console.Write($"");
+                    if (MathMatrix[i,j] > PositiveRangeNumOfPadding[k]) Console.Write($"");
                     else Console.Write($" ");
                 }
+                Console.Write($"{MathMatrix[i,j]}");
+                Thread.Sleep(10);
             }
             Console.WriteLine();
         }
@@ -138,13 +141,18 @@ class Program
         {
             for (int j = 0; j < Columns; j++)
             {
-                Console.Write($"{NewMathMatrix[i,j]}");
-                Thread.Sleep(10);
-                for (int k = 0; k < RangeNumOfPadding.Length; k++)
+                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
                 {
-                    if (NewMathMatrix[i,j] > RangeNumOfPadding[k]) Console.Write($"");
-                    else Console.Write($" ");
+                    if (NewMathMatrix[i,j] >= 0) 
+                        if (NewMathMatrix[i,j] <= PositiveRangeNumOfPadding[k]) 
+                            Console.Write($" ");
+                    if (NewMathMatrix[i,j] < 0) 
+                        if (NewMathMatrix[i,j] >= NegativeRangeOfPadding[k]) 
+                            Console.Write($" ");
                 }
+                if (NewMathMatrix[i,j] < 0) Console.Write($"{ NewMathMatrix[i,j]}");
+                else Console.Write($"{ NewMathMatrix[i,j]}");
+                Thread.Sleep(10);
             }
             Console.WriteLine();
         }
