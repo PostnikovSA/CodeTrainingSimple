@@ -39,13 +39,7 @@ class Program
             Count++;
         }
         
-        
-        //for (int i = 0; i < OrderPadding.Length; i++)
-        //{
-        //    Console.WriteLine(OrderPadding[i]);
-        //}
-            
-    
+     
         // Create ranges from {MinNum} to {MaxNum}
         int MinNumAll = 1;
         int MaxNumRows = 50;
