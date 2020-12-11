@@ -1,21 +1,16 @@
 /*
-SkillBox. HomeWork_4.8. Задание 3.3.
+SkillBox. HomeWork_4.8. Задание 2.
 
 Author: Сергей Камянецкий.
 
-Task: Write a program that allows you to multiply mathematical matrices.
-Add the ability to enter the number of rows and columns of the matrix.
-Add the ability to enter the mathematical operation of addition and subtraction.
+Task: Create a visualization of Pascal's triangle with a maximum of 25 rows.
 
-Задача: Написать программу позволяющая перемножать математические матрицы.
-Добавить возможность ввода количества строк и столбцов матрицы.
-Добавить возможность ввода математического действия сложения и вычитания.
+Задача: Создать визуализацию треугольника Паскаля с максимальным количеством строк: 25.
 */
 
 
 using System;
 using System.Linq;
-using System.Threading;
 class Program
 {
     static void Main()
@@ -23,156 +18,72 @@ class Program
         // Calculate the maximum multi-digit of possible numbers of integer types
         int MaxMultiDigit = 0;
         
-        for (int i = 10; i < int.MaxValue / 2; i *= 10) MaxMultiDigit++;
+        for (int i = 10; i < 100001 / 2; i *= 10) MaxMultiDigit++;
    
    
         // Calculate a range of numbers to determine the number of padding elements
         int [] PositiveRangeNumOfPadding = new int [MaxMultiDigit];
-        int [] NegativeRangeOfPadding = new int [MaxMultiDigit];
         
         int Count = 0;
-        
-        for (int i = 10; i < int.MaxValue / 2; i *= 10)
-        {
-            PositiveRangeNumOfPadding [Count] = i - 1;
-            NegativeRangeOfPadding [Count] = (i*-1) + 1;
-            Count++;
-        }
-            
+        for (int i = 10; i < 100001 / 2; i *= 10)
+            {
+                PositiveRangeNumOfPadding [Count] = i-1;
+                Count++;
+            }
+     
     
-        // Create ranges from {MinNum} to {MaxNum}
-        int MinNumAll = 1;
-        int MaxNumRows = 15;
-        int MinNumMatrix = 0;
-        int MaxNumMatrix = 10;
-    
-    
-        // Enter number of Rows
-        int Rows;
+        // Numbers of row
+        int n;
+        Console.Write($"Enter how many rows there will be in pascal's triangle: ");
         while (true)
         {
-            Console.Write($"Enter number of Rows and Columns in the range from {MinNumAll} to {MaxNumRows}: ");
-            string s_Rows = Console.ReadLine();
-            bool b_Rows = int.TryParse(s_Rows, out Rows);
-            if ((b_Rows == true)&&(Rows >= MinNumAll)&&(Rows <= MaxNumRows)) break;
-            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumRows}!\n");
+            bool b_n = int.TryParse(Console.ReadLine(), out n);
+            if ((b_n == true)&&(n < 26)&&(n > 0)) break;
+            else Console.WriteLine($"Error! Enter only whole numbers in range 1 to 25. Try again");
+        
         }
-        Console.Clear();
-        
-        
-        // Enter number of Columns 
-        int Columns = Rows;
-     
-        
-        // Create Random
-        Random Randomize = new Random();
-        
-        
-        // Create the Math Matrix 1 and Math Matrix 2   
-        int [,] MathMatrix_1 = new int [Rows, Columns];
-        int [,] MathMatrix_2 = new int [Rows, Columns];
-        for (int i = 0; i < Rows; i++)
+
+
+        // Create a jagged array
+        int[][] TablePaskal = new int[n][];
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < Columns; j++)
+            TablePaskal[i] = new int[i+1];
+        }
+
+
+        // Add values to a jagged array
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < TablePaskal[i].Length; j++)
             {
-                MathMatrix_1[i,j] = Randomize.Next(MinNumMatrix,MaxNumMatrix);
-                MathMatrix_2[i,j] = Randomize.Next(MinNumMatrix,MaxNumMatrix);
+                if ((i == 0) && (j == 0)) TablePaskal[i][j] = 1; // Row 0       
+                if (j == 0) TablePaskal[i][j] = 1; // First row
+                if (j == 1) TablePaskal[i][j] = i; // Second row
+                if (j == TablePaskal[i].Length - 1) TablePaskal[i][j] = 1; // Last row
+                if (j == TablePaskal[i].Length - 2) TablePaskal[i][j] = i; // Penult row
+                if ((j > 1) && (j < TablePaskal[i].Length - 2)) TablePaskal[i][j] = TablePaskal[i-1][j-1]+ TablePaskal[i-1][j]; // The sum of two numbers, the row higher above the diagonal
             }
         }
-        
-        
-        // Create the New Math Matrix
-        int TemporaryValue = 0;
-        int EndValue = 0;
-        int [,] NewMathMatrix = new int [Rows, Columns];
-        for (int i = 0; i < Rows; i++)
+
+
+        // Draw Pascal's triangle
+        int CountSpice = 0;
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < Rows; j++)
-            {
-                TemporaryValue = 0;
-                EndValue = 0;
-                for (int k = 0; k < Rows; k++)
-                {
-                    TemporaryValue = MathMatrix_1 [i,k] * MathMatrix_2 [k,j];
-                    EndValue += TemporaryValue;
-                }
-                NewMathMatrix [i,j] = EndValue;
-            }
-        }
-        
-       
-        // Draw Math Matrix_1
-        Console.WriteLine($"Math Matrix_1:");
-        Thread.Sleep(10);
-        for (int i = 0; i < Rows; i++)
-        {
-            for (int j = 0; j < Columns; j++)
+            
+            for (int j = 0;  j < TablePaskal[i].Length; j++)
             {
                 for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
                 {
-                    if (MathMatrix_1[i,j] >= 0) 
-                        if (MathMatrix_1[i,j] <= PositiveRangeNumOfPadding[k]) 
-                            Console.Write($" ");
-                            
-                    if (MathMatrix_1[i,j] < 0) 
-                        if (MathMatrix_1[i,j] >= NegativeRangeOfPadding[k]) 
+                    if (TablePaskal[i][j] >= 0) 
+                        if (TablePaskal[i][j] <= PositiveRangeNumOfPadding[k]) 
                             Console.Write($" ");
                 }
-                if (MathMatrix_1[i,j] >= 0) Console.Write($" {MathMatrix_1[i,j]}");
-                else Console.Write($"{MathMatrix_1[i,j]}");
-                Thread.Sleep(10);
+                Console.Write($"{TablePaskal[i][j]} ");
             }
             Console.WriteLine();
         }
-        
-        
-        // Draw Math Matrix_2
-        Console.WriteLine($"\nMath Matrix_2:");
-        Thread.Sleep(10);
-        for (int i = 0; i < Rows; i++)
-        {
-            for (int j = 0; j < Columns; j++)
-            {
-                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
-                {
-                    if (MathMatrix_2[i,j] >= 0) 
-                        if (MathMatrix_2[i,j] <= PositiveRangeNumOfPadding[k]) 
-                            Console.Write($" ");
-                            
-                    if (MathMatrix_2[i,j] < 0) 
-                        if (MathMatrix_2[i,j] >= NegativeRangeOfPadding[k]) 
-                            Console.Write($" ");
-                }
-                if (MathMatrix_2[i,j] >= 0) Console.Write($" {MathMatrix_2[i,j]}");
-                else Console.Write($"{MathMatrix_2[i,j]}");
-                Thread.Sleep(10);
-            }
-            Console.WriteLine();
-        }
-   
-   
-        // Draw New Math Matrix
-        Console.WriteLine($"\nNew Math Matrix:");
-        Thread.Sleep(10);
-        for (int i = 0; i < Rows; i++)
-        {
-            for (int j = 0; j < Columns; j++)
-            {
-                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
-                {
-                    if (NewMathMatrix[i,j] >= 0) 
-                        if (NewMathMatrix[i,j] <= PositiveRangeNumOfPadding[k]) 
-                            Console.Write($" ");
-                            
-                    if (NewMathMatrix[i,j] < 0) 
-                        if (NewMathMatrix[i,j] >= NegativeRangeOfPadding[k]) 
-                            Console.Write($" ");
-                }
-                if (NewMathMatrix[i,j] >= 0) Console.Write($" {NewMathMatrix[i,j]}");
-                else Console.Write($"{NewMathMatrix[i,j]}");
-                Thread.Sleep(10);
-            }
-            Console.WriteLine();
-        }
+        Console.WriteLine();
     }
 }
