@@ -15,6 +15,23 @@ class Program
 {
     static void Main()
     {
+        // Calculate the maximum multi-digit of possible numbers of integer types
+        int MaxMultiDigit = 0;
+        
+        for (int i = 10; i < 100001 / 2; i *= 10) MaxMultiDigit++;
+   
+   
+        // Calculate a range of numbers to determine the number of padding elements
+        int [] PositiveRangeNumOfPadding = new int [MaxMultiDigit];
+        
+        int Count = 0;
+        for (int i = 10; i < 100001 / 2; i *= 10)
+            {
+                PositiveRangeNumOfPadding [Count] = i-1;
+                Count++;
+            }
+     
+    
         // Numbers of row
         int n;
         Console.Write($"Enter how many rows there will be in pascal's triangle: ");
@@ -54,17 +71,16 @@ class Program
         int CountSpice = 0;
         for (int i = 0; i < n; i++)
         {
-            CountSpice = n-i;
+            
             for (int j = 0;  j < TablePaskal[i].Length; j++)
             {
-                while (CountSpice != 0) 
+                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
                 {
-                    Console.Write($" ");
-                    CountSpice--;
+                    if (TablePaskal[i][j] >= 0) 
+                        if (TablePaskal[i][j] <= PositiveRangeNumOfPadding[k]) 
+                            Console.Write($" ");
                 }
-                if (TablePaskal[i].Length % 2 == 0)
                 Console.Write($"{TablePaskal[i][j]} ");
-                else Console.Write($"{TablePaskal[i][j]} ");
             }
             Console.WriteLine();
         }
