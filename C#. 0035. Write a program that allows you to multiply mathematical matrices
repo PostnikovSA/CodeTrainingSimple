@@ -1,3 +1,4 @@
+ 
 /*
 SkillBox. HomeWork_4.8. Задание 3.3.
 Author: Сергей Камянецкий.
@@ -44,8 +45,8 @@ class Program
         // Create ranges from {MinNum} to {MaxNum}
         int MinNumAll = 1;
         int MaxNumRows = 15;
-        int MinNumMatrix = 0;
-        int MaxNumMatrix = 10;
+        int MinNumMatrix = -1000;
+        int MaxNumMatrix = 1000;
     
     
         // Enter number of Rows
