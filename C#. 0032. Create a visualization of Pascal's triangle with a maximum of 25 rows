@@ -3,9 +3,9 @@ SkillBox. HomeWork_4.8. Задание 2.
 
 Author: Сергей Камянецкий.
 
-Task: Create a visualization of Pascal's triangle with a maximum of 25 rows.
+Task: Create a visualization of Pascal's triangle with a maximum of 20 rows.
 
-Задача: Создать визуализацию треугольника Паскаля с максимальным количеством строк: 25.
+Задача: Создать визуализацию треугольника Паскаля с максимальным количеством строк: 20.
 */
 
 
@@ -38,8 +38,8 @@ class Program
         while (true)
         {
             bool b_n = int.TryParse(Console.ReadLine(), out n);
-            if ((b_n == true)&&(n < 26)&&(n > 0)) break;
-            else Console.WriteLine($"Error! Enter only whole numbers in range 1 to 25. Try again");
+            if ((b_n == true)&&(n < 21)&&(n > 0)) break;
+            else Console.WriteLine($"Error! Enter only whole numbers in range 1 to 20. Try again");
         
         }
 
@@ -68,9 +68,12 @@ class Program
 
 
         // Draw Pascal's triangle
-        int CountSpice = 0;
+        int CountSpice;
+        
         for (int i = 0; i < n; i++)
         {
+            CountSpice = (n-i) * 3;
+            for(int l = 0; l < CountSpice; l++) Console.Write($" ");
             
             for (int j = 0;  j < TablePaskal[i].Length; j++)
             {
