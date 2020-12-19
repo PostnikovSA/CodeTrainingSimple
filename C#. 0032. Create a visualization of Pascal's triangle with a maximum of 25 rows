@@ -70,6 +70,7 @@ class Program
         // Draw Pascal's triangle
         int CountSpice;
         
+        Console.WriteLine();
         for (int i = 0; i < n; i++)
         {
             CountSpice = (n-i) * 3;
