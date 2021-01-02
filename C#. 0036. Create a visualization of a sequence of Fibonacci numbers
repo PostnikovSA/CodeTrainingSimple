@@ -1,0 +1,41 @@
+/*
+SkillBox. Lesson 5.4. Понятие рекурсивной функции.
+
+Author: Сергей Камянецкий.
+
+Task: Create a visualization of a sequence of Fibonacci numbers.
+
+Задача: Создать визуализацию последовательности чисел Фиббоначчи.
+*/
+
+using System;
+class Program 
+{
+    static int Count()
+    {
+        int Count = int.Parse(Console.ReadLine());
+        return Count;
+    }
+    
+    static void FibonacciNumberSequence(int Count)
+    {
+        int FirstValue = 1;
+        int SecondValue = 1;
+        int Result = FirstValue + SecondValue;
+        
+        Console.Write($"{FirstValue} {SecondValue} {Result} ");
+        
+        for (int i = 0; i <= Count; i++)
+        {
+            FirstValue = SecondValue;
+            SecondValue = Result;
+            Result = FirstValue + SecondValue;
+            Console.Write($"{Result} ");
+        }
+    }
+    
+    static void Main() 
+    {
+        FibonacciNumberSequence(Count());
+    }
+}
