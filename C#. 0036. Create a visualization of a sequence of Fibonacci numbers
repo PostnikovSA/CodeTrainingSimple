@@ -13,7 +13,14 @@ class Program
 {
     static int Count()
     {
-        int Count = int.Parse(Console.ReadLine());
+        int Count;
+        while (true)
+        {
+            Console.Write($"Insert the number: ");
+            bool b_Count = int.TryParse(Console.ReadLine(), out Count);
+            if (b_Count == false) Console.WriteLine($"Error\n");
+            else break;
+        }
         return Count;
     }
     
@@ -23,7 +30,7 @@ class Program
         int SecondValue = 1;
         int Result = FirstValue + SecondValue;
         
-        Console.Write($"{FirstValue} {SecondValue} {Result} ");
+        Console.Write($"\n{FirstValue} {SecondValue} {Result} ");
         
         for (int i = 0; i <= Count; i++)
         {
