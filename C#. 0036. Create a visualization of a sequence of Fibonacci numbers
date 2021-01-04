@@ -11,38 +11,34 @@ Task: Create a visualization of a sequence of Fibonacci numbers.
 using System;
 class Program 
 {
-    static int Count()
+    static int EnterNumber()
     {
-        int Count;
+        int EntredNumber;
+        
         while (true)
         {
             Console.Write($"Enter only whole numbers in the range from 1 to 30: ");
-            bool b_Count = int.TryParse(Console.ReadLine(), out Count);
-            if ((b_Count == false)||(Count < 1)||(Count > 30)) Console.WriteLine($"Error. Enter only whole numbers in the range from 1 to 30\n");
+            bool b_EntredNumber = int.TryParse(Console.ReadLine(), out EntredNumber);
+            if ((b_EntredNumber == false)||(EntredNumber < 1)||(EntredNumber > 30)) Console.WriteLine($"Error. Enter only whole numbers in the range from 1 to 30\n");
             else break;
         }
-        return Count;
+        return EntredNumber;
     }
     
-    static void FibonacciNumberSequence(int Count)
+    static int FibonacciNumberSequence(int i)
     {
-        int FirstValue = 1;
-        int SecondValue = 1;
-        int Result = FirstValue + SecondValue;
-        
-        Console.Write($"{FirstValue} {SecondValue} {Result} ");
-        
-        for (int i = 0; i <= Count; i++)
-        {
-            FirstValue = SecondValue;
-            SecondValue = Result;
-            Result = FirstValue + SecondValue;
-            Console.Write($"{Result} ");
-        }
+        if ((i == 1) || (i == 2)) return 1;
+        else return (FibonacciNumberSequence(i - 1) + FibonacciNumberSequence(i - 2));
     }
     
     static void Main() 
     {
-        FibonacciNumberSequence(Count());
+        int EntredNumber = EnterNumber();
+        
+        for (int i = 1; i < EntredNumber; i++)
+        {
+            Console.Write($"{FibonacciNumberSequence(i)} ");
+        }
+        
     }
 }
