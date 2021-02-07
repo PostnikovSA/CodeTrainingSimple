@@ -1,0 +1,289 @@
+/*
+SkillBox. HomeWork_5.5. Задание 1.2.
+
+Author: Сергей Камянецкий.
+
+Task: Write a program that allows you to add and subtract mathematical matrices.
+Add the ability to enter the number of rows and columns of the matrix.
+Add the ability to enter the mathematical operation of addition and subtraction.
+Сreate a method that accepts two matrices, returns their sum or subtraction.
+
+Задача: Написать программу позволяющая складывать и вычитать математические матрицы.
+Добавить возможность ввода количества строк и столбцов матрицы.
+Добавить возможность ввода математического действия сложения и вычитания.
+Создать метод принимающий две матрицы, возвращающий их сумму или вычитание.
+*/
+
+
+using System;
+using System.Linq;
+using System.Threading;
+
+class Program
+{
+    // Maximum multi-digit of possible numbers of integer types
+    static int GetMaxMultiDigit()
+    {
+        int MaxMultiDigit = 0;
+        
+        for (int i = 10; i < int.MaxValue / 2; i *= 10) MaxMultiDigit++;
+        return MaxMultiDigit;
+    }
+    
+    
+    // Number of indentation elements with a positive number
+    static int [] GetPositiveRangeNumOfPadding (int MaxMultiDigit)
+    {
+        int [] PositiveRangeNumOfPadding = new int [MaxMultiDigit];
+        int Count = 0;
+        
+        for (int i = 10; i < int.MaxValue / 2; i *= 10)
+        {
+            PositiveRangeNumOfPadding [Count] = i-1;
+            Count++;
+        }
+        return PositiveRangeNumOfPadding;    
+            
+    }
+        
+        
+    // Number of indentation elements with a negative number
+    static int [] GetNegativeRangeNumOfPadding (int MaxMultiDigit)
+    {
+        int [] NegativeRangeOfPadding = new int [MaxMultiDigit];
+        int Count = 0;
+        
+        for (int i = 10; i < int.MaxValue / 2; i *= 10)
+            {
+                NegativeRangeOfPadding [Count] = (i*-1)+1;
+                Count++;
+            } 
+            return NegativeRangeOfPadding;
+    }
+    
+    
+    // Enter number of Rows
+    static int GetRows (int MinNumAll, int MaxNumRows)
+    {
+        int Rows;
+        while (true)
+        {
+            Console.Write($"Enter number of Rows in the range from {MinNumAll} to {MaxNumRows}: ");
+            string s_Rows = Console.ReadLine();
+            bool b_Rows = int.TryParse(s_Rows, out Rows);
+            if ((b_Rows == true)&&(Rows >= MinNumAll)&&(Rows <= MaxNumRows)) break;
+            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumRows}!\n");
+        }
+        return Rows;
+    }
+    
+        
+    // Enter number of Columns
+    static int GetColumns (int MinNumAll, int MaxNumColumns)
+    {
+        int Columns;
+        while (true)
+        {
+            Console.Write($"Enter number of Columns in the range from {MinNumAll} to {MaxNumColumns}: ");
+            string s_Columns = Console.ReadLine();
+            bool b_Columns = int.TryParse(s_Columns, out Columns);
+            if ((b_Columns == true)&&(Columns >= MinNumAll)&&(Columns <= MaxNumColumns)) break;
+            else Console.WriteLine($"Error! Try again! Enter only whole numbers in the range from {MinNumAll} to {MaxNumColumns}!\n");
+        }
+        return Columns;
+    }
+      
+        
+    // Create the Math Matrix 1
+    static int [,] CreateMathMatrix_1 (int Rows, int Columns, int MinNumAll, int MaxNumMatrix)
+    {
+        Random Randomize = new Random(Guid.NewGuid().GetHashCode());
+            
+        int [,] MathMatrix_1 = new int [Rows, Columns];
+            
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                MathMatrix_1[i,j] = Randomize.Next(MinNumAll,MaxNumMatrix+1);
+            }
+        }
+        return MathMatrix_1;
+    }
+        
+        
+    // Create the Math Matrix 2
+    static int [,] CreateMathMatrix_2 (int Rows, int Columns, int MinNumAll, int MaxNumMatrix)
+    {
+        Random Randomize = new Random(Guid.NewGuid().GetHashCode());
+            
+        int [,] MathMatrix_2 = new int [Rows, Columns];
+            
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                MathMatrix_2[i,j] = Randomize.Next(MinNumAll,MaxNumMatrix+1);
+            }
+        }
+        return MathMatrix_2;
+    }
+    
+    
+    // Enter the number to be multiplied by the original Math Matrix
+    static string GetMathAction()
+    {
+        string MathAction;
+        while (true)
+        {
+            Console.Write($"Enter math action either '+' or '-': ");
+            MathAction = Console.ReadLine();
+            if ((MathAction == "+")||(MathAction == "-")) break;
+            else Console.WriteLine($"Error! Try again! Enter math action either '+' or '-'\n");
+        }
+        return MathAction;
+    }
+    
+    
+    // Create the New Math Matrix
+    static int [,] CreateNewMathMatrix(int Rows, int Columns, int [,] MathMatrix_1, int [,] MathMatrix_2, string MathAction)
+    {
+        int [,] NewMathMatrix = new int [Rows, Columns];
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (MathAction == "+") NewMathMatrix[i,j] = MathMatrix_1[i,j] + MathMatrix_2[i,j];
+                if (MathAction == "-") NewMathMatrix[i,j] = MathMatrix_1[i,j] - MathMatrix_2[i,j];
+            }
+        }
+        return NewMathMatrix;
+    }
+    
+    
+    // Draw Math Matrix_1
+    static void DrawMathMatrix_1 (int Rows, int Columns, int [] PositiveRangeNumOfPadding, int [,] MathMatrix_1)
+    {
+        Console.WriteLine($"Math Matrix_1:");
+        Thread.Sleep(10);
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
+                {
+                    if (MathMatrix_1[i,j] > PositiveRangeNumOfPadding[k]) Console.Write($"");
+                    else Console.Write($" ");
+                }
+                Console.Write($"{MathMatrix_1[i,j]}");
+                Thread.Sleep(10);
+            }
+            Console.WriteLine();
+        }
+    }
+    
+    
+    // Draw Math Matrix_2
+    static void DrawMathMatrix_2 (int Rows, int Columns, int [] PositiveRangeNumOfPadding, int [,] MathMatrix_2)
+    {
+        Console.WriteLine($"Math Matrix_2:");
+        Thread.Sleep(10);
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
+                {
+                    if (MathMatrix_2[i,j] > PositiveRangeNumOfPadding[k]) Console.Write($"");
+                    else Console.Write($" ");
+                }
+                Console.Write($"{MathMatrix_2[i,j]}");
+                Thread.Sleep(10);
+            }
+            Console.WriteLine();
+        }
+    }
+    
+    
+    // Draw New Math Matrix
+        static void DrawNewMathMatrix (int Rows, int Columns, int [] PositiveRangeNumOfPadding, int [] NegativeRangeOfPadding, int [,] NewMathMatrix)
+        {
+            Console.WriteLine($"\nNew Math Matrix:");
+            Thread.Sleep(10);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    for (int k = 0; k < PositiveRangeNumOfPadding.Length; k++)
+                    {
+                        if (NewMathMatrix[i,j] >= 0) 
+                            if (NewMathMatrix[i,j] <= PositiveRangeNumOfPadding[k]) 
+                                Console.Write($" ");
+                            
+                        if (NewMathMatrix[i,j] < 0) 
+                            if (NewMathMatrix[i,j] >= NegativeRangeOfPadding[k]) 
+                                Console.Write($" ");
+                    }
+                    if (NewMathMatrix[i,j] >= 0) Console.Write($" {NewMathMatrix[i,j]}");
+                    else Console.Write($"{NewMathMatrix[i,j]}");
+                    Thread.Sleep(10);
+                }
+                Console.WriteLine();
+            }
+        }
+        
+        
+        
+        
+    
+    static void Main()
+    {
+        // Maximum multi-digit of possible numbers of integer types
+        int MaxMultiDigit = GetMaxMultiDigit();
+   
+        // Number of indentation elements with a positive number
+        int [] PositiveRangeNumOfPadding = GetPositiveRangeNumOfPadding(MaxMultiDigit);
+        
+        // Number of indentation elements with a negative number
+        int [] NegativeRangeOfPadding = GetNegativeRangeNumOfPadding(MaxMultiDigit);
+     
+        // Create ranges from {MinNum} to {MaxNum}
+        int MinNumAll = 1;
+        int MaxNumRows = 50;
+        int MaxNumColumns = 15;
+        int MaxNumMatrix = 10000;
+    
+        // Enter number of Rows
+        int Rows = GetRows(MinNumAll,MaxNumRows);
+        Console.Clear();
+        
+        // Enter number of Columns 
+        int Columns = GetColumns(MinNumAll, MaxNumColumns);
+        Console.Clear();
+      
+        // Create the Math Matrix 1
+        int [,] MathMatrix_1 = CreateMathMatrix_1(Rows, Columns, MinNumAll, MaxNumMatrix);
+        
+        // Create the Math Matrix 2
+        int [,] MathMatrix_2 = CreateMathMatrix_2(Rows, Columns, MinNumAll, MaxNumMatrix);
+        
+        // Enter the number to be multiplied by the original Math Matrix
+        string MathAction = GetMathAction();
+        Console.Clear();
+        
+        // Create the New Math Matrix
+        int [,] NewMathMatrix = CreateNewMathMatrix(Rows, Columns, MathMatrix_1, MathMatrix_2, MathAction);
+        
+        // Draw Math Matrix_1
+        DrawMathMatrix_1(Rows, Columns, PositiveRangeNumOfPadding, MathMatrix_1);
+        
+        // Draw Math Matrix_2
+        DrawMathMatrix_2(Rows, Columns, PositiveRangeNumOfPadding, MathMatrix_2);
+        
+        // Draw MathAction
+        Console.WriteLine($"\nMath Action selected: \n'{MathAction}'");
+   
+        // Draw New Math Matrix
+        DrawNewMathMatrix(Rows, Columns, PositiveRangeNumOfPadding, NegativeRangeOfPadding, NewMathMatrix);   
+    }
+}
