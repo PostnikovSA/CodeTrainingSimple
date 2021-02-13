@@ -31,16 +31,32 @@ class Program
             if (Words[i].Length < MinValue) MinValue = Words[i].Length; 
         }
         
+        
+        int Count = 0; 
+        
         foreach (string Word in Words)
         {
-            if (Word.Length == MinValue) Console.Write($"{Word} ");
+            if (Word.Length == MinValue) Count++;
+        }
+        
+        foreach (string Word in Words)
+        {
+            if (Word.Length == MinValue) 
+            {
+                Console.Write($"{Word}");
+                if (Count > 1) 
+                {
+                Console.Write($", ");
+                Count--;
+                }
+            }
         }
     }
     
     
     static void Main()
     {
-        string Text = "Участок	Продаётся земельный участок, общий площадью 10 Га. Назначение земельного участка (ИЖС), с возможностью перевода в промзону.	(918)580-37-02 а Николай";
+        string Text = "Участок	Продаётся земельный участок, общий площадью 10 Га. Назначение земельного участка__(ИЖС), с возможностью перевода в промзону.	(918)580-37-02 а Николай";
       
         string [] Words = SplitTextToArray (Text);
         
