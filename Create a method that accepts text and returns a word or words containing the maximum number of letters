@@ -1,0 +1,70 @@
+/*
+SkillBox. HomeWork_5.5. Задание 2.2.
+
+Author: Сергей Камянецкий.
+
+Task: Create a method that accepts text and returns a word or words containing the maximum number of letters.
+
+Задача: Создать метод принимающий текст и возвращающий слово или слова, содержащее максимальное количество букв.
+
+*/
+
+using System;
+
+class Program
+{
+    static string [] SplitTextToArray (string Text)
+    {
+        string[] Separators = { ",", ".", "!", "?", ";", ":", " ", "	"};
+        string [] Words = Text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
+        return Words;
+    }
+    
+    
+    static void FindMinLetters (string [] Words)
+    {
+        int MaxValue = Words[0].Length;
+        
+        for (int i = 1; i < Words.Length; i++)
+        {
+            foreach (char Letter in Words[i]);
+            if (Words[i].Length > MaxValue) MaxValue = Words[i].Length; 
+        }
+        
+        
+        int Count = 0; 
+        
+        foreach (string Word in Words)
+        {
+            if (Word.Length == MaxValue) Count++;
+        }
+        
+        foreach (string Word in Words)
+        {
+            if (Word.Length == MaxValue) 
+            {
+                Console.Write($"{Word}");
+                if (Count > 1) 
+                {
+                Console.Write($", ");
+                Count--;
+                }
+            }
+        }
+    }
+    
+    
+    static void Main()
+    {
+        string Text = "Участок	Продаётся земельный участок, общий площадью 10 Га. Назначение земельного участка__(ИЖС), с возможностью перевода в промзону.	(918)580-37-02 а Николай";
+      
+        string [] Words = SplitTextToArray (Text);
+        
+        Console.Write($"Original Text: ");
+        foreach (string Word in Words) Console.Write($" {Word}");
+        Console.WriteLine();
+        
+        Console.Write($"Result: ");
+        FindMinLetters(Words);
+    }
+}
