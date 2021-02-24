@@ -1,0 +1,211 @@
+/*
+SkillBox. HomeWork_5.5. Задание 4.
+
+Author: Сергей Камянецкий.
+
+Task: Elements of a sequence of numbers are arithmetic or geometric progression.
+
+Задача: Написать метод принимающий некоторое количество чисел, 
+задача которого выяснить является ли заданная последлвательность эелементами арифметической или геометрической прогрессии.
+*/
+
+using System;
+
+class Program
+{
+    static int GetRows() // Get a number of try
+    {
+        int Rows;
+        int MinRows = 1;
+        int MaxRows = 10000;
+
+        while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"Enter number of try in the range {MinRows} to {MaxRows}: ");
+            bool Success = Int32.TryParse(Console.ReadLine(), out Rows);
+            if ((Success == true) && (Rows >= MinRows) && (Rows <= MaxRows)) break;
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error. Enter only whole and positive number in the range {MinRows} to {MaxRows}!\n");
+            }
+        }
+        Console.WriteLine();
+        return Rows;
+    }
+    
+    
+    static int GetColumns() // Get a number of values in the row
+    {
+        int Columns;
+        int MinColumns = 3;
+        int MaxColumns = 9;
+
+        while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"Enter number of values in the row, in the range {MinColumns} to {MaxColumns}: ");
+            bool Success = Int32.TryParse(Console.ReadLine(), out Columns);
+            if ((Success == true) && (Columns >= MinColumns) && (Columns <= MaxColumns))
+            {
+                Console.WriteLine();
+                break;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error. Enter only whole and positive number in the range {MinColumns} to {MaxColumns}!\n");
+            }
+        }
+        return Columns;
+    }
+    
+    
+    static int[,] GetRandomNumbers(int Rows, int Columns) // Get a values in arithmetic or geometric progression
+    {
+        int a = 2;
+        int d = 5;
+
+        int b = 2;
+        int q = 5;
+
+        Random Randomize = new Random();
+        int OneOrTwo;
+
+        int[,] RandomNumbers = new int[Rows, Columns];
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                OneOrTwo = Randomize.Next(1, 3);
+                RandomNumbers[i, j] = OneOrTwo == 1 ? a + d * ((j + 1) - 1) : b * Convert.ToInt32(Math.Pow(q, (j + 1) - 1));
+            }
+        }
+        return RandomNumbers;
+    }
+    
+    
+    static int[,] GetArithmeticDifferenceProgression(int Rows, int Columns, int[,] RandomNumbers) // Get Arithmetic Difference Progression
+    {
+        int[,] ArithmeticDifferenceProgression = new int[Rows, Columns - 1];
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0, k = Columns; j < Columns - 1; j++, k--)
+            {
+                ArithmeticDifferenceProgression[i, j] = RandomNumbers[i, k - 1] - RandomNumbers[i, k - 2];
+            }
+        }
+        return ArithmeticDifferenceProgression;
+    }
+    
+    
+    static int[,] GetGeometricDifferenceProgression(int Rows, int Columns, int[,] RandomNumbers) // Get Geometric Difference Progression
+    {
+        int[,] GeometricDifferenceProgression = new int[Rows, Columns - 1];
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0, k = Columns; j < Columns - 1; j++, k--)
+            {
+                GeometricDifferenceProgression[i, j] = RandomNumbers[i, k - 1] / RandomNumbers[i, k - 2];
+            }
+        }
+        return GeometricDifferenceProgression;
+    }
+    
+    
+    static bool[] FindArithmeticProgression(int Rows, int Columns, int[,] ArithmeticDifferenceProgression) // Find Arithmetic Progression
+    {
+        bool[] IsArithmeticProgression = new bool[Rows];
+        int Count;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            Count = 0;
+            for (int j = 0; j < Columns-2; j++)
+            {
+                if (ArithmeticDifferenceProgression[i, j] == ArithmeticDifferenceProgression[i, j + 1]) Count++;
+            }
+            IsArithmeticProgression[i] = Count == Columns-2 ? true : false;
+        }
+        return IsArithmeticProgression;
+    }
+    
+    
+    static bool[] FindGeometricProgression(int Rows, int Columns, int[,] GeometricDifferenceProgression) // Find Geometric Progression
+    {
+        bool[] IsGeometricProgression = new bool[Rows];
+        int Count;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            Count = 0;
+            for (int j = 0; j < Columns-2; j++)
+            {
+                if (GeometricDifferenceProgression[i, j] == GeometricDifferenceProgression[i, j + 1]) Count++;
+            }
+            IsGeometricProgression[i] = Count == Columns-2 ? true : false;
+        }
+        return IsGeometricProgression;
+    }
+    
+    
+    static void DisplayOfConsole(int Rows, int Columns, int[,] RandomNumbers, bool[] IsArithmeticProgression, bool[] IsGeometricProgression) // Display Of Console
+    {
+        int CountAP = 0;
+        int CountGP = 0;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if ((IsArithmeticProgression[i] == false)||(IsGeometricProgression[i] == false)) Console.ForegroundColor = ConsoleColor.White;
+                if ((IsArithmeticProgression[i] == true)||(IsGeometricProgression[i] == true)) Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write($"{RandomNumbers[i, j]}\t");
+            }
+
+            if (IsArithmeticProgression[i] == false) Console.ForegroundColor = ConsoleColor.White;
+            if (IsArithmeticProgression[i] == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                CountAP++;
+            }
+            Console.Write($"\tAP: {IsArithmeticProgression[i]}\t");
+
+            if (IsGeometricProgression[i] == false) Console.ForegroundColor = ConsoleColor.White;
+            if (IsGeometricProgression[i] == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                CountGP++;
+            }
+            Console.Write($"GP: {IsGeometricProgression[i]}\n");
+        }
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"\nArithmetic progression matches: {CountAP}");
+        Console.WriteLine($"Geometric progression matches: {CountGP}");
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+    
+    
+    static void Main()
+    {
+        int Rows = GetRows();
+
+        int Columns = GetColumns();
+
+        int[,] RandomNumbers = GetRandomNumbers(Rows, Columns);
+
+        int[,] ArithmeticDifferenceProgression = GetArithmeticDifferenceProgression(Rows, Columns, RandomNumbers);
+
+        int[,] GeometricDifferenceProgression = GetGeometricDifferenceProgression(Rows, Columns, RandomNumbers);
+
+        bool[] IsArithmeticProgression = FindArithmeticProgression(Rows, Columns, ArithmeticDifferenceProgression);
+
+        bool[] IsGeometricProgression = FindGeometricProgression(Rows, Columns, GeometricDifferenceProgression);
+
+        DisplayOfConsole(Rows, Columns, RandomNumbers, IsArithmeticProgression, IsGeometricProgression);
+    }
+}
