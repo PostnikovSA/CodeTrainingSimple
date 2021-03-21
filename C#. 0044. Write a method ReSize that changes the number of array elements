@@ -17,30 +17,30 @@ class Program
     static void ReSize (ref int[] OldArray, int ArraySize)
     {
         int[] NewArray = new int[ArraySize];
-        
+
         int Priority = OldArray.Length > NewArray.Length ? NewArray.Length : OldArray.Length;
-    
+
         for (int i = 0; i < Priority; i++) NewArray[i] = OldArray[i];
-        
+
         OldArray = NewArray;
     }
-    
+
     static void Main() 
     {
         Console.Write("MyArray Old: ");
         int[] MyArray = {1, 2, 3, 4, 5};
         for (int i = 0; i < MyArray.Length; i++) Console.Write($"{MyArray[i]} ");
         Console.WriteLine();
-        
+
         int ArrayNewSize;
         while (true)
         {
             Console.Write("Enter Length New Array: ");
             bool _IsArraySize = int.TryParse(Console.ReadLine(), out ArrayNewSize);
-            if (_IsArraySize == false) Console.WriteLine("Error. Try Again");
+            if ((_IsArraySize == false)||(ArrayNewSize < 1)) Console.WriteLine("Error. Try Again");
             else break;
         }
-        
+
         ReSize(ref MyArray, ArrayNewSize);
 
         Console.Write("MyArray New: ");
