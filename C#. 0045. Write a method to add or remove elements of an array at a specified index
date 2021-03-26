@@ -14,84 +14,88 @@ using System;
 
 class Program 
 {
-    static void CreateMyArray(ref int[] MyArray)
+    static void GetMyArray(ref int[] MyArray)
     {
-        Console.Write($"OriginalArray: ");
+        Console.Write($"MyArray Original: ");
         Random Randomize = new Random();
         for (int i = 0; i < MyArray.Length; i++) 
         {
-            int Temp = Randomize.Next(0, 100);
-            MyArray[i] = Temp;
+            int temp = Randomize.Next(0, 100);
+            MyArray[i] = temp;
         }
-
         for (int i = 0; i < MyArray.Length; i++) Console.Write($"{MyArray[i]} ");
         Console.WriteLine();
     }
     
-    static void ResizeByIndex (ref int[] OldArray, char MathAction, int NumberIndex)
+    static void GetMathAction (ref char MathAction)
     {
-        int[] NewArray = MathAction == '+' ? new int[OldArray.Length+1] : new int[OldArray.Length-1];
+        while (true)
+        {
+            Console.Write($"Enter '+' or '-' to select an action: Add or Remove an element from an array: ");
+            bool _isMathAction = char.TryParse(Console.ReadLine(), out MathAction);
+            if ((_isMathAction == false)||((MathAction != '+')&&(MathAction != '-'))) Console.WriteLine("Error. Try Again");
+            else break;
+        }
+    }
     
+    static void GetNumberIndex (ref int NumberIndex, int[]MyArray)
+    {
+        while (true)
+        {
+            Console.Write("Enter NumberIndex New Array: ");
+            bool _isNumberIndex = int.TryParse(Console.ReadLine(), out NumberIndex);
+            if ((_isNumberIndex == false)||(NumberIndex >= MyArray.Length)||(NumberIndex < 0)) Console.WriteLine("Error. Try Again");
+            else break;
+        }
+    }
+    
+    static void ResizeByIndex (ref int[] MyArray, char MathAction, int NumberIndex)
+    {
+        int[] MyArrayNew = MathAction == '+' ? new int[MyArray.Length+1] : new int[MyArray.Length-1];
     
         if (MathAction == '+')
         {
             int Count = 0;
-            for (int i = 0; i < OldArray.Length; i++) 
+            for (int i = 0; i < MyArray.Length; i++) 
             {
                 if (NumberIndex == i) 
                 {
-                    NewArray[i] = 0;
-                    NewArray[i+1] = OldArray[i];
+                    MyArrayNew[i] = 0;
+                    MyArrayNew[i+1] = MyArray[i];
                     Count++;
                 }
-                else NewArray[i+Count] = OldArray[i];
+                else MyArrayNew[i+Count] = MyArray[i];
             }
         }
-        
         
         if (MathAction == '-')
         {
             int Count = 0;
-            for (int i = 0; i < NewArray.Length; i++) 
+            for (int i = 0; i < MyArrayNew.Length; i++) 
             {
-                if (NumberIndex == i) 
-                {
-                    Count++;
-                }
-                NewArray[i] = OldArray[Count+i];
+                if (NumberIndex == i) Count++;
+                MyArrayNew[i] = MyArray[Count+i];
             }
         }
-        OldArray = NewArray;
+        
+        MyArray = MyArrayNew;
+        
+        Console.Write("MyArray New: ");
+        for (int i = 0; i < MyArray.Length; i++) Console.Write($"{MyArray[i]} ");
+        Console.WriteLine();
     }
     
     static void Main() 
     {
         int[] MyArray = new int[5];
+        GetMyArray(ref MyArray);
         
-        CreateMyArray(ref MyArray);
+        char MathAction = ' ';
+        GetMathAction(ref MathAction);
         
-        char MathAction;
-        while (true)
-        {
-            Console.Write($"Enter '+' or '-' to select an action: Add or Remove an element from an array: ");
-            bool _IsMathAction = char.TryParse(Console.ReadLine(), out MathAction);
-            if ((_IsMathAction == false)||((MathAction != '+')&&(MathAction != '-'))) Console.WriteLine("Error. Try Again");
-            else break;
-        }
-        
-        int NumberIndex;
-        while (true)
-        {
-            Console.Write("Enter NumberIndex New Array: ");
-            bool _IsNumberIndex = int.TryParse(Console.ReadLine(), out NumberIndex);
-            if ((_IsNumberIndex == false)||(NumberIndex >= MyArray.Length)||(NumberIndex < 0)) Console.WriteLine("Error. Try Again");
-            else break;
-        }
+        int NumberIndex = 0;
+        GetNumberIndex(ref NumberIndex, MyArray);
         
         ResizeByIndex(ref MyArray, MathAction, NumberIndex);
-
-        Console.Write("MyArray New: ");
-        for (int i = 0; i < MyArray.Length; i++) Console.Write($"{MyArray[i]} ");
-        Console.WriteLine();
     }
 }
