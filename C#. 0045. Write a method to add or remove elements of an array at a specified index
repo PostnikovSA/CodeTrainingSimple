@@ -44,8 +44,8 @@ class Program
         {
             Console.Write("Enter NumberIndex New Array: ");
             bool _isNumberIndex = int.TryParse(Console.ReadLine(), out NumberIndex);
-            if ((MathAction == '+') && ((_isNumberIndex == false) || (NumberIndex > MyArray.Length) || (NumberIndex < 0))) Console.WriteLine("Error. Try Again");
-            if ((MathAction == '-') && ((_isNumberIndex == false) || (NumberIndex >= MyArray.Length) || (NumberIndex < 0))) Console.WriteLine("Error. Try Again");
+            int MathCorrection = MathAction == '+' ? MyArray.Length : MyArray.Length - 1;
+            if ((_isNumberIndex == false) || (NumberIndex > MathCorrection) || (NumberIndex < 0)) Console.WriteLine("Error. Try Again");
             else break;
         }
     }
