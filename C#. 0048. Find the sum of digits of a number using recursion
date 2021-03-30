@@ -14,7 +14,7 @@ using System;
 
 public class Program
 {
-    static void WriteSumNumbers(ref int num, ref int sum, ref int count, ref int devidedByTen)
+    static void WriteSumNumbers(int num, int sum, int count, int devidedByTen)
     {
         if (count == 0)
         {
@@ -27,7 +27,7 @@ public class Program
         devidedByTen /= 10;
         count--;
 
-        WriteSumNumbers(ref num, ref sum, ref count, ref devidedByTen);
+        WriteSumNumbers(num, sum, count, devidedByTen);
     }
 
     static void Main()
@@ -35,8 +35,8 @@ public class Program
         int num = 561;
         int sum = 0;
         int count = num.ToString().Length;
-        int devidedByTen = Convert.ToInt32(Math.Pow(10, count-1));
+        int devidedByTen = Convert.ToInt32(Math.Pow(10, count - 1));
 
-        WriteSumNumbers(ref num, ref sum, ref count, ref devidedByTen);
+        WriteSumNumbers(num, sum, count, devidedByTen);
     }
 }
