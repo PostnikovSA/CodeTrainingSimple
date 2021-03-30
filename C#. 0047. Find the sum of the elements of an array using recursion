@@ -14,22 +14,25 @@ using System;
 
 public class Program
 {
-    static void WriteOnTheConsole(int[] myArray, ref int n, ref int sum)
+    static void WriteOnTheConsole(int[] myArray, int n, int sum)
     {
-        if (n == myArray.Length) return;
-        
+        if (n == myArray.Length)
+        {
+            Console.WriteLine($"sum: {sum}");
+            return;
+        }
+
         sum += myArray[n];
-        Console.WriteLine(sum);
         n++;
-        WriteOnTheConsole(myArray, ref n, ref sum);
+        WriteOnTheConsole(myArray, n, sum);
     }
-    
+
     static void Main()
     {
-        int[] myArray = {-5, 0, 5, 10, 20};
+        int[] myArray = { -5, 0, 5, 10, 20 };
         int n = 0;
         int sum = 0;
-        
-        WriteOnTheConsole(myArray, ref n, ref sum);
+
+        WriteOnTheConsole(myArray, n, sum);
     }
 }
