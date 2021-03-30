@@ -1,0 +1,42 @@
+/*
+https://www.youtube.com/watch?v=B50p1BRyb_E&t=1266s
+29:40
+
+Author: #SimpleCode.
+
+Task: Find the sum of digits of a number using recursion.
+
+Задача: Найти сумму цифр числа с помощью рекурсии.
+*/
+
+
+using System;
+
+public class Program
+{
+    static void WriteSumNumbers(ref int num, ref int sum, ref int count, ref int devidedByTen)
+    {
+        if (count == 0)
+        {
+            Console.Write($"sum: {sum}");
+            return;
+        }
+
+        sum += num / devidedByTen;
+        num = num % devidedByTen;
+        devidedByTen /= 10;
+        count--;
+
+        WriteSumNumbers(ref num, ref sum, ref count, ref devidedByTen);
+    }
+
+    static void Main()
+    {
+        int num = 561;
+        int sum = 0;
+        int count = num.ToString().Length;
+        int devidedByTen = Convert.ToInt32(Math.Pow(10, count-1));
+
+        WriteSumNumbers(ref num, ref sum, ref count, ref devidedByTen);
+    }
+}
