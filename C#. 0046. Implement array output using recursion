@@ -14,13 +14,13 @@ using System;
 
 public class Program
 {
-    static void WriteOnTheConsole(int[] myArray, ref int n)
+    static void WriteOnTheConsole(int[] myArray, int n)
     {
         if (n == myArray.Length) return;
         
         Console.WriteLine(myArray[n]);
         n++;
-        WriteOnTheConsole(myArray, ref n);
+        WriteOnTheConsole(myArray, n);
     }
     
     static void Main()
@@ -28,6 +28,6 @@ public class Program
         int[] myArray = {-5, 0, 5, 10, 20};
         int n = 0;
         
-        WriteOnTheConsole(myArray, ref n);
+        WriteOnTheConsole(myArray, n);
     }
 }
