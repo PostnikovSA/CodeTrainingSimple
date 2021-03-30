@@ -1,0 +1,33 @@
+/*
+https://www.youtube.com/watch?v=B50p1BRyb_E&t=1266s
+29:40
+
+Author: #SimpleCode.
+
+Task: Implement array output using recursion.
+
+Задача: Реализовать вывод массива с помощью рекурсии.
+*/
+
+
+using System;
+
+public class Program
+{
+    static void WriteOnTheConsole(int[] myArray, ref int n)
+    {
+        if (n == myArray.Length) return;
+        
+        Console.WriteLine(myArray[n]);
+        n++;
+        WriteOnTheConsole(myArray, ref n);
+    }
+    
+    static void Main()
+    {
+        int[] myArray = {-5, 0, 5, 10, 20};
+        int n = 0;
+        
+        WriteOnTheConsole(myArray, ref n);
+    }
+}
