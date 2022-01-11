@@ -1,0 +1,90 @@
+/*
+https://skills.geecko.ru/test/Lq6g5KqRkSPg6WIjlQwaSFeyX0G8jm/0?dark_mode=on&lang=ru&
+
+Author: SberFight. Geecko. Sber.
+
+Task:
+Вася установил шпионскую программу на компьютер и собирает данные о действия пользователя.
+У вас есть массив действий пользователя со значениями:
+
+"power" - включение или выключение компьютера, изначально он выключен
+"keystrokes" - ввод символов, "kestrokes" после включения компьютера означает, что пользователь ввёл пароль и переходит на рабочий стол
+"click" - клик мышкой, два клика подряд на рабочем столе означает запуск приложения
+
+Посчитайте количество раз, когда пользователь запускал приложение на рабочем столе после однократного успешного запуска компьютера и ввода пароля.
+
+Ввод:
+actions - строковый массив действий пользователя
+
+Вывод:
+Integer - количество запущенных приложений
+
+Пример:
+actions = ["power", "keystrokes", "click", "click", "power", "click", "click"]
+GetResult(actions) = 1
+Пользователь запустил компьютер, ввёл пароль, попал на рабочий стол и один раз запустил приложение, после чего выключил компьютер и последующие действия мы не учитываем.
+*/
+
+
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class Solution
+{
+    public static int GetResult(List<string> actions)
+    {
+        bool powerOn = false;
+        bool keystrokesOn = false;
+        int maxStartProgram = 1;
+        int countPowerOn = 0;
+        int countKeystrokesOn = 0;
+        int countClicks = 0;
+        int countRunProgram = 0;
+            
+        for (int i = 0; i < actions.Count; i++)
+        {
+            if (actions[i] == "power") 
+            {
+                powerOn = (powerOn == false) ? true : false;
+                countPowerOn++;
+            }
+
+            if (powerOn == false) 
+                keystrokesOn = false;
+
+            if (actions[i] == "keystrokes") 
+            {
+                if (powerOn == true)
+                {
+                    keystrokesOn = true;
+                    countKeystrokesOn++;
+                }
+                else
+                    keystrokesOn = false;
+            }
+
+            if ((actions[i] != "click") && (countClicks > 0)) 
+                countClicks = 0; 
+
+            if (actions[i] == "click") 
+            {
+                if ((powerOn == true) && (keystrokesOn == true))
+                    countClicks++;
+            }
+
+            if (countClicks == 2) 
+            {
+                countRunProgram++;
+                Console.Write(countClicks);
+                countClicks = 0; 
+            }
+        }
+        return countRunProgram;
+    }
+
+    public static void RunCode()
+    {
+        // Entrypoint to debug your function
+    }
+}
