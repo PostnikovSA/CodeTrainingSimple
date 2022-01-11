@@ -1,0 +1,179 @@
+/*
+https://skills.geecko.ru/test/gjKy03dKkpiI3eaCffNggnFedidPWK?dark_mode=on&lang=ru&
+
+Author: SberFight. Geecko. Sber.
+
+Task:
+Пришло время праздника! На корпоратив сотрудники компании решили добираться на такси, но решили вызвать как можно меньше машин, чтобы было дешевле. 
+Они посчитали, что на переднем сидении может сидеть человек какого угодно веса, а на задних - до 210 кг в сумме и до трех человек. 
+Какое минимальное число машин необходимо вызвать, чтобы всех довезти на корпоратив? 
+
+На входе:
+weight - массив чисел, вес каждого сотрудника компании
+
+На выходе:
+integer - количество машин
+
+Пример:
+weight=[89, 46, 134, 78, 79, 67, 63, 81]
+GetResult(weight) → 2 // 134 + 79, 67, 63; 89+78, 81, 46
+*/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Solution
+{
+    public static int GetResult(List<int> weigth)
+    {
+        int countTaxi = 0;
+        void PrintList() 
+        {
+            foreach (var item in weigth) Console.Write($"{item} ");
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+        bool ErrorCheck() 
+        {
+            foreach (var item in weigth)
+            {
+                if (item <= 0) return false;
+            }
+            return true;
+        }
+        bool ArePassangersReadyToLoad() 
+        {
+            if (ErrorCheck() == false) return false;
+            if (weigth.Count() > 0) return true;
+            return false;
+        }
+        void SortingList() 
+        {
+            Console.WriteLine("Run SortingList()");
+            weigth.Sort();
+            Console.WriteLine();
+            PrintList();
+        }
+        void LoadRigthSeat()
+        {
+            Console.WriteLine("Run LoadRigthSeat()");
+            Console.WriteLine($"Remove {weigth.Max()}");
+            Console.WriteLine();
+            weigth.Remove(weigth.Max());
+            PrintList();
+        }
+        void LoadBackSeat() 
+        {
+            int maxWeigthBackSeat = 210;
+            int firstValue = 0;
+            int secondValue = 0;
+            int lastValue = 0;
+            int match = 0;
+            int weigthBackSeatPassanger1 = 0;
+            int weigthBackSeatPassanger2 = 0;
+            int weigthBackSeatPassanger3 = 0;
+     
+            void LoadOnePassanger()
+            {
+                Console.WriteLine("Run LoadOnePassanger()");
+                if (weigth[0] <= maxWeigthBackSeat)
+                {
+                    Console.WriteLine($"Remove: {weigth[0]}");
+                    weigth.Remove(weigth[0]);
+                    Console.WriteLine();
+                }
+            }
+            void LoadTwoPassangers() 
+            {
+                Console.WriteLine("Run LoadTwoPassangers()");
+                if (weigth[0] + weigth[1] <= maxWeigthBackSeat)
+                {
+                    Console.WriteLine($"Remove: {weigth[0]}");
+                    weigth.Remove(weigth[0]);
+                    Console.WriteLine();
+
+                    Console.WriteLine($"Remove: {weigth[0]}");
+                    weigth.Remove(weigth[0]);
+                    Console.WriteLine();
+                }
+            }
+            void LoadThreeOrMorePassangers() 
+            {
+                Console.WriteLine("Run LoadThreeOrMorePassangers()");
+                for (int i = 0; i < weigth.Count; i++)
+                {
+                    firstValue = weigth[i];
+                    weigth.Remove(firstValue);
+
+                    for (int j = 0; j < weigth.Count; j++)
+                    {
+                        secondValue = weigth[j];
+                        weigth.Remove(secondValue);
+
+                        for (int k = 0; k < weigth.Count; k++)
+                        {
+                            lastValue = weigth[k];
+
+                            if ((firstValue + secondValue + lastValue > match) && (firstValue + secondValue + lastValue <= maxWeigthBackSeat))
+                            {
+                                match = firstValue + secondValue + lastValue;
+                                weigthBackSeatPassanger1 = firstValue;
+                                weigthBackSeatPassanger2 = secondValue;
+                                weigthBackSeatPassanger3 = lastValue;
+                            }
+                            if ((firstValue + secondValue > match) && (firstValue + secondValue <= maxWeigthBackSeat))
+                            {
+                                match = firstValue + secondValue;
+                                weigthBackSeatPassanger1 = firstValue;
+                                weigthBackSeatPassanger2 = secondValue;
+                            }
+                            if ((firstValue > match) && (firstValue <= maxWeigthBackSeat))
+                            {
+                                match = firstValue;
+                                weigthBackSeatPassanger1 = firstValue;
+                            }
+                        }
+                        weigth.Add(secondValue);
+                        weigth.Sort();
+                    }
+                    weigth.Add(firstValue);
+                    weigth.Sort();
+                }
+
+                Console.WriteLine($"RemovePassanger1: {weigthBackSeatPassanger1}");
+                weigth.Remove(weigthBackSeatPassanger1);
+                Console.WriteLine($"RemovePassanger2: {weigthBackSeatPassanger2}");
+                weigth.Remove(weigthBackSeatPassanger2);
+                Console.WriteLine($"RemovePassanger3: {weigthBackSeatPassanger3}");
+                weigth.Remove(weigthBackSeatPassanger3);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Run LoadBackseat()");
+ 
+            if (weigth.Count == 1) LoadOnePassanger();
+            if (weigth.Count == 2) LoadTwoPassangers();
+            if (weigth.Count >= 3) LoadThreeOrMorePassangers();
+
+            PrintList();
+        }
+        void LoadTaxi() 
+        {
+            Console.WriteLine("Run LoadTaxi()");
+            SortingList();
+            if (ArePassangersReadyToLoad() == true) LoadRigthSeat();
+            if (ArePassangersReadyToLoad() == true) LoadBackSeat();
+            Console.WriteLine();
+        }
+
+        while (ArePassangersReadyToLoad() == true)
+        {
+            countTaxi++;
+            Console.WriteLine($"countTaxi: {countTaxi}");
+            LoadTaxi();
+        }
+        return countTaxi;
+    }
+}
