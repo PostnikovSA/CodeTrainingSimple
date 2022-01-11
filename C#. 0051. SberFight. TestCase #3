@@ -1,0 +1,143 @@
+/*
+https://skills.geecko.ru/test/bscAYqclHp5BPeOiAiU3emnoVS_GUd/0?dark_mode=on&lang=ru&
+
+Author: SberFight. Geecko. Sber.
+
+Task:
+Вы купили дорогой билет на карнавал и хотите попасть на все представления. 
+Учитывая время начала мероприятий и длительности проведения, ответьте, возможно ли это.
+
+На входе:
+time - интервалы проведения представлений (string[]) в формате: "час_начала-час_окончания"
+
+На выходе:
+Boolean - возможно ли полностью посмотреть каждое представление
+
+Пример 1:
+time = ["09-13", "12-14"]
+GetResult(time) = false
+Первое представление идёт с 9 часов до 13, а второе начинается в 12. 
+Так что побывать на всех представлениях полностью не получится.
+
+Пример 2:
+time = ["07-09", "10-12", "15-19"]
+GetResult(time) = true
+*/
+
+
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class Solution
+{
+    public static bool GetResult(List<string> time)
+    {
+        char delimiter = '-';
+        bool isPossible = false;
+        List<int> nums = new List<int>();
+        List<int> allHours = new List<int>();
+
+        for (int i = 0; i < time.Count; i++)
+        {
+            string[] gapHours = time[i].Split(delimiter).ToArray();
+
+            // check: no more than 2
+            if (gapHours.Length != 2)
+            {
+                isPossible = false;
+                break; //continue;
+            }
+
+            // check to parsing strings to ints or break
+            int firstNum = 0;
+            int lastNum = 0;
+
+            bool isIntFirstNum = int.TryParse(gapHours[0], out firstNum);
+            bool isIntLastNum = int.TryParse(gapHours[1], out lastNum);
+
+            if ((isIntFirstNum == false) || (isIntLastNum == false))
+            {
+                isPossible = false;
+                break;  //continue;
+            }
+            else
+                isPossible = true;
+
+            nums.Add(firstNum);
+            nums.Add(lastNum);
+
+            // check or break
+            if (firstNum >= lastNum)
+            {
+                isPossible = false;
+                break; //continue;
+            }
+            else
+                isPossible = true;
+
+            // check all nums 0 to 23 or break
+            if ((firstNum > 23) || (firstNum < 0) || (lastNum > 23) || (lastNum < 0))
+            {
+                isPossible = false;
+                break; //continue;
+            }
+            else
+                isPossible = true;
+
+            // add in list all hours
+            int countInsertNum = (lastNum - firstNum) - 1;
+
+            allHours.Add(firstNum);
+            for (int j = 0; j < countInsertNum; j++)
+            {
+                allHours.Add(firstNum + (j + 1));
+            }
+            allHours.Add(lastNum);
+        }
+        if (isPossible == false) 
+            return isPossible;
+
+        // find exception 
+        int countExceptions = 0;
+        for (int i = 0; i < nums.Count; i++)
+        {
+            int duplicatesNum = 0;
+            for (int j = 0; j < nums.Count; j++)
+            {
+                if (nums[i] == nums[j])
+                {
+                    duplicatesNum++;
+                }
+            }
+            if (duplicatesNum > 1) countExceptions++;
+        }
+
+        // find duplicates
+        int countDuplicatesAllHours = 0;
+        for (int k = 0; k < allHours.Count; k++)
+        {
+            int duplicatesAllHours = 0;
+            for (int l = 0; l < allHours.Count; l++)
+            {
+                if (allHours[k] == allHours[l])
+                {
+                    duplicatesAllHours++;
+                }
+            }
+            if (duplicatesAllHours > 1)
+            {
+                countDuplicatesAllHours++;
+            }
+        }
+
+        // compare countDuplicates hours and countExceptions
+        if (countDuplicatesAllHours - countExceptions != 0) isPossible = false;
+        return isPossible;
+    }
+
+    public static void RunCode()
+    {
+        // Entrypoint to debug your function
+    }
+}
