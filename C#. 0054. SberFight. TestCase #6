@@ -1,0 +1,105 @@
+/*
+https://skills.geecko.ru/test/UZMIXI-cu7LPzTEqIe3jDK8amuj_-Q?dark_mode=on&lang=ru&
+
+Author: SberFight. Geecko. Sber.
+
+Task:
+Вы сотрудник иммиграционной службы страны Арстоцка. 
+В эту страну приезжает много людей, которые предоставляют вам свой паспорт, а потом сообщают вам информацию о себе.
+Вы сравниваете возраст и имя с паспортными данными и принимаете решение – впустить человека в страну или нет. 
+Впускаем в страну, когда данные совпадают.
+Однако, вы можете расслышать имя неправильно. 
+Если ошибка в имени одна (не хватает буквы, лишняя буква или одна буква другая), то считайте вам сказали правду. 
+Регистр букв в имени не учитывается.
+
+На входе:
+calendar – нынешний год (integer)
+date_of_birth – год рождения в паспорте (integer)
+name – имя человека в паспорте (string).
+phrases – строковый массив – показания человека phrases[a, b], где a – возраст человека, b–имя.
+
+На выходе:
+Boolean – решение, которые вы приняли (True – впустить, False – нет, то есть если возраст не соответствует паспортным данным или различий в имени больше одного)
+
+Пример:
+calendar = 1984
+date_of_birth =1950
+name =“Anna”
+phrases = [“34”, “Ana”]
+GetResult(calendar , date_of_birth, name, phrases) =True
+*/
+
+
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class Solution
+{
+    public static bool GetResult(int calendar, int dateOfBirth, string name, List<string> phrases)
+    {
+        bool CheckAge() 
+        {
+            int digit = 0;
+            bool isInt = Int32.TryParse(phrases[0], out digit);
+            if (isInt == true)
+                return (calendar - dateOfBirth == digit) ? true : false;
+            else 
+                return false;
+        } 
+
+        bool CheckName() 
+        {
+            int miss = 0;
+            if ((phrases[1].Length + 1 < name.Length) || (phrases[1].Length > name.Length + 1)) return false;
+
+            if (phrases[1].Length < name.Length)
+            {
+                for (int i = 0; i < name.Length; i++)
+                {
+                    if ((i == name.Length - 2) && (miss == 0)) return true;
+                    if (Char.ToLower(phrases[1][i - miss]) != Char.ToLower(name[i]))
+                    {
+                        miss++;
+                        if (miss > 1) break;
+                    }
+                }
+                if (miss > 1) return false;
+            }
+
+            if (phrases[1].Length > name.Length)
+            {
+                for (int i = 0; i < phrases[1].Length; i++)
+                {
+                    if ((i == phrases[1].Length - 2) && (miss == 0)) return true;
+                    if (Char.ToLower(phrases[1][i]) != Char.ToLower(name[i - miss]))
+                    {
+                        miss++;
+                        if (miss > 1) break;
+                    }
+                }
+                if (miss > 1) return false;
+            }
+
+            if (phrases[1].Length == name.Length)
+            {
+                for (int i = 0; i < phrases[1].Length; i++)
+                {
+                    if (Char.ToLower(phrases[1][i]) != Char.ToLower(name[i]))
+                    {
+                        miss++;
+                        if (miss > 1) break;
+                    }
+                }
+                if (miss > 1) return false;
+            }
+            return true;
+        }
+        return ((CheckAge() == true) && (CheckName() == true)) ? true : false;
+    }
+
+    public static void RunCode()
+    {
+        // Entrypoint to debug your function
+    }
+}
