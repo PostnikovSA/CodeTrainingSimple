@@ -1,0 +1,61 @@
+/*
+Task 2.1.2.
+Найти сумму цисел по формуле: 1 / квадрат диапазона положительных чисел от 1 до 100.
+*/
+
+using System;
+
+public class Solution
+{
+    public static double GetSumWithDoWhile(int minNum, int maxNum)
+    {
+        double result = 0;
+        double count = minNum;
+
+        do
+        {
+            result += 1 / (count * count);
+            count++;
+        }
+        while (count < maxNum);
+
+        return result;
+    }
+    public static double GetSumWithWhile(int minNum, int maxNum) 
+    {
+        double result = 0;
+        double count = minNum;
+
+        while (count <= maxNum)
+        {
+            result += 1 / (count * count);
+            count++;
+        }
+
+        return result;
+    }
+    public static double GetSumWithFor(int minNum, int maxNum)
+    {
+        double result = 0;
+
+        for (double i = minNum; i < maxNum; i++) 
+            result += 1 / (i * i);
+        
+        return result;
+    }
+    static void Main(string[] args)
+    {
+        int minNum = 1;
+        int maxNum = 100;
+        double sum = 0;
+
+        sum = GetSumWithDoWhile(minNum, maxNum);
+        Console.WriteLine(sum);
+
+        sum = GetSumWithWhile(minNum, maxNum);
+        Console.WriteLine(sum);
+
+        sum = GetSumWithFor(minNum, maxNum);
+        Console.WriteLine(sum);
+    }
+}
