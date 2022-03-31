@@ -1,0 +1,62 @@
+/*
+Task: 2.1.1.
+Найти сумму всех нечетных чисел диапазона [1, 50].
+*/
+
+using System;
+
+public class Solution
+{
+    public static int GetSumWithDoWhile(int minNum, int maxNum)
+    {
+        int result = 0;
+        int count = minNum;
+
+        do
+        {
+            if (count % 2 != 0) result += count;
+            count++;
+        }
+        while (count < maxNum);
+
+        return result;
+    }
+    public static int GetSumWithWhile(int minNum, int maxNum) 
+    {
+        int result = 0;
+        int count = minNum;
+
+        while (count <= maxNum)
+        {
+            if (count % 2 != 0) result += count;
+            count++;
+        }
+
+        return result;
+    }
+    public static int GetSumWithFor(int minNum, int maxNum)
+    {
+        int result = 0;
+
+        for (int i = minNum; i < maxNum; i++)
+            if (i % 2 != 0)
+                result += i;
+
+        return result;
+    }
+    static void Main(string[] args)
+    {
+        int minNum = 1;
+        int maxNum = 50;
+        int sum = 0;
+
+        sum = GetSumWithDoWhile(minNum, maxNum);
+        Console.WriteLine(sum);
+
+        sum = GetSumWithWhile(minNum, maxNum);
+        Console.WriteLine(sum);
+
+        sum = GetSumWithFor(minNum, maxNum);
+        Console.WriteLine(sum);
+    }
+}
